@@ -12,13 +12,12 @@
 #include "Engine.h"
 #include "Home.h"
 #include "Level1.h"
-#include "LvlBase.h"
 
 // ------------------------------------------------------------------------------
 
 void Home::Init()
 {
-    backg = new Sprite("Resources/TitleScreen.jpg");      //    Sprite a definir
+    backg = new Sprite("Resources/TitleScreen.jpg");
 }
 
 // ------------------------------------------------------------------------------
@@ -45,8 +44,7 @@ void Home::Update()
 
     // passa ao primeiro nível com ENTER
     if (window->KeyDown(VK_RETURN))
-        //Engine::Next<Level1>();
-        Engine::Next<LvlBase>();
+        Engine::Next<Level1>();
 }
 
 // ------------------------------------------------------------------------------

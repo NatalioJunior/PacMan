@@ -173,7 +173,6 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="Level2.cpp" />
-    <ClCompile Include="LvlBase.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PacMan.cpp" />
     <ClCompile Include="Pivot.cpp" />
@@ -196,7 +195,6 @@
     <ClInclude Include="Image.h" />
     <ClInclude Include="Level1.h" />
     <ClInclude Include="Level2.h" />
-    <ClInclude Include="LvlBase.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PacMan.h" />
     <ClInclude Include="Pivot.h" />
@@ -213,7 +211,6 @@
   <ItemGroup>
     <Text Include="FoodL1.txt" />
     <Text Include="FoodL2.txt" />
-    <Text Include="lvlBasePivots.txt" />
     <Text Include="PivotsL1.txt" />
     <Text Include="PivotsL2.txt" />
   </ItemGroup>

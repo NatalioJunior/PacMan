@@ -2,8 +2,8 @@
 
 // ---------------------------------------------------------------------
 
-IDI_ICON        ICON        "Resources\\_Icon.ico"
-IDC_CURSOR      CURSOR      "Resources\\_Cursor.cur"
+IDI_ICON        ICON        "Resources\\Icon.ico"
+IDC_CURSOR      CURSOR      "Resources\\Cursor.cur"
 
 // ---------------------------------------------------------------------
 
