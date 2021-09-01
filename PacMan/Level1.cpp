@@ -28,7 +28,7 @@ void Level1::Init()
     scene = new Scene();
 
     // cria background
-    // backg = new Sprite("Resources/Level1.jpg");  Sprite a definir
+    backg = new Sprite("Resources/fase.png");  //Sprite a definir
 
     // cria jogador
     Player * player = new Player();
@@ -96,7 +96,7 @@ void Level1::Update()
     else if (window->KeyDown('N'))
     {
         // passa manualmente para o próximo nível
-        Engine::Next<Level2>();
+        //Engine::Next<Level2>();
     }
     else
     {
