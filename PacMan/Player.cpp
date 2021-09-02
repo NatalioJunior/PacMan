@@ -25,7 +25,7 @@ Player::Player()
 
     // imagem do pacman é X por Y (com borda transparente de W pixels)
      bbox = new Rect(-20, -20, 20, 20);
-    MoveTo(480.0f, 450.0f);
+    MoveTo(480.0f, 445.0f);
     type = PLAYER;
 }
 
