@@ -90,9 +90,6 @@
     <ClCompile Include="Object.cpp">
       <Filter>Engine\Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="LvlBase.cpp">
-      <Filter>Game\Arquivos de Origem</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -176,9 +173,6 @@
       <Filter>Game\Arquivos de Recurso</Filter>
     </Text>
     <Text Include="PivotsL2.txt">
-      <Filter>Game\Arquivos de Recurso</Filter>
-    </Text>
-    <Text Include="lvlBasePivots.txt">
       <Filter>Game\Arquivos de Recurso</Filter>
     </Text>
   </ItemGroup>
