@@ -18,10 +18,10 @@
 Player::Player()
 {
    // Sprites a definir:
-    spriteL = new Sprite("Resources/PacManL.png");
-    spriteR = new Sprite("Resources/PacManR.png");
-    spriteU = new Sprite("Resources/PacManU.png");
-    spriteD = new Sprite("Resources/PacManD.png");
+    spriteL = new Sprite("Resources/SkullL.png");
+    spriteR = new Sprite("Resources/SkullR.png");
+    spriteU = new Sprite("Resources/SkullU.png");
+    spriteD = new Sprite("Resources/SkullD.png");
 
     // imagem do pacman é X por Y (com borda transparente de W pixels)
      bbox = new Rect(-20, -20, 20, 20);
