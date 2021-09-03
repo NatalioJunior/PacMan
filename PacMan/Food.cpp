@@ -18,9 +18,7 @@ Food::Food(Image* img)
 {
 	sprite = new Sprite(img);
 
-
-
-	bbox = new Rect((float)-sprite->Width() / 2, (float)-sprite->Height() / 2, sprite->Width() / 2, sprite->Height() / 2);
+	bbox = new Rect((float)-sprite->Width() / 2, (float)-sprite->Height() / 2, (float) sprite->Width() / 2, (float) sprite->Height() / 2);
 	type = FOOD;
 }
 

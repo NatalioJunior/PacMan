@@ -66,16 +66,16 @@ void Level1::Init()
 	}
 	fin.close();
 
-	Image* foodSprite = new Image("Resources/Food.png");
-
+	// cria comidas no mapa
+	foodSprite = new Image("Resources/Food.png");
 	Food* food;
 
 	float foodPosX, foodPosY;
 	fin.open("FoodL1.txt");
-	fin >> left;
+	fin >> foodPosX;
 	while (!fin.eof()) {
 		if (fin.good()) {
-			fin >> foodPosX; fin >> foodPosY;
+			fin >> foodPosY;
 			food = new Food(foodSprite);
 
 			food->MoveTo(foodPosX, foodPosY);
@@ -86,6 +86,7 @@ void Level1::Init()
 			char temp[80];
 			fin.getline(temp, 80);
 		}
+		fin >> foodPosX;
 	}
 
 	fin.close();
@@ -98,6 +99,7 @@ void Level1::Finalize()
 {
 	delete backg;
 	delete scene;
+	delete foodSprite;
 }
 
 // ------------------------------------------------------------------------------

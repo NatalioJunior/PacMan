@@ -27,13 +27,10 @@
 class Food : public Object
 {
 private:
-	Sprite* sprite = nullptr;          // sprite da comida
-
-
+	Sprite* sprite = nullptr;			// sprite da comida
 
 public:
-
-	Food(Image* img);                             // construtor
+	Food(Image* img);                   // construtor
 	~Food();                            // destrutor
 
 

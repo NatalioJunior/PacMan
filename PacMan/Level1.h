@@ -25,6 +25,7 @@ class Level1 : public Game
 {
 private:
     Sprite * backg = nullptr;       // background
+    Image * foodSprite = nullptr;   // comidas
 
     bool viewBBox = false;          // habilita visualização da bounding box
     bool ctrlKeyB = false;          // controle da tecla B
