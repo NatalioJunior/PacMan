@@ -1,6 +1,6 @@
 /**********************************************************************************
 // Food (Código Fonte)
-// 
+//
 // Criação:     03 Jan 2013
 // Atualização: 25 Ago 2021
 // Compilador:  Visual C++ 2019
@@ -14,16 +14,22 @@
 
 // ---------------------------------------------------------------------------------
 
-Food::Food()
+Food::Food(Image* img)
 {
-    type = FOOD;
+	sprite = new Sprite(img);
+
+
+
+	bbox = new Rect((float)-sprite->Width() / 2, (float)-sprite->Height() / 2, sprite->Width() / 2, sprite->Height() / 2);
+	type = FOOD;
 }
 
 // ---------------------------------------------------------------------------------
 
 Food::~Food()
 {
-
+	delete sprite;
+	delete bbox;
 }
 
 // ---------------------------------------------------------------------------------
