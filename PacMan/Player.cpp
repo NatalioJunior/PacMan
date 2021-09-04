@@ -26,7 +26,7 @@ Player::Player()
 	spriteU = new Sprite("Resources/SkullU.png");
 	spriteD = new Sprite("Resources/SkullD.png");
 
-	// imagem do pacman é X por Y (com borda transparente de W pixels)
+	// imagem do player é 48 por 48 (com borda transparente de W pixels)
 	bbox = new Rect(-20, -20, 20, 20);
 	MoveTo(480.0f, 445.0f);
 	type = PLAYER;
@@ -40,7 +40,7 @@ Player::Player(Scene* sc)
 	spriteU = new Sprite("Resources/SkullU.png");
 	spriteD = new Sprite("Resources/SkullD.png");
 
-	// imagem do pacman é X por Y (com borda transparente de W pixels)
+	// imagem do player é 48 por 48 (com borda transparente de W pixels)
 	bbox = new Rect(-20, -20, 20, 20);
 	MoveTo(480.0f, 445.0f);
 	type = PLAYER;
@@ -466,18 +466,18 @@ void Player::Draw()
 {
 	switch (currState)
 	{
-	case LEFT:  spriteL->Draw(x, y, Layer::UPPER); break;
-	case RIGHT: spriteR->Draw(x, y, Layer::UPPER); break;
-	case UP:    spriteU->Draw(x, y, Layer::UPPER); break;
-	case DOWN:  spriteD->Draw(x, y, Layer::UPPER); break;
+	case LEFT:  spriteL->Draw(x, y, Layer::MIDDLE); break;
+	case RIGHT: spriteR->Draw(x, y, Layer::MIDDLE); break;
+	case UP:    spriteU->Draw(x, y, Layer::MIDDLE); break;
+	case DOWN:  spriteD->Draw(x, y, Layer::MIDDLE); break;
 	default:
 		switch (nextState)
 		{
-		case LEFT:  spriteL->Draw(x, y, Layer::UPPER); break;
-		case RIGHT: spriteR->Draw(x, y, Layer::UPPER); break;
-		case UP:    spriteU->Draw(x, y, Layer::UPPER); break;
-		case DOWN:  spriteD->Draw(x, y, Layer::UPPER); break;
-		default:    spriteL->Draw(x, y, Layer::UPPER);
+		case LEFT:  spriteL->Draw(x, y, Layer::MIDDLE); break;
+		case RIGHT: spriteR->Draw(x, y, Layer::MIDDLE); break;
+		case UP:    spriteU->Draw(x, y, Layer::MIDDLE); break;
+		case DOWN:  spriteD->Draw(x, y, Layer::MIDDLE); break;
+		default:    spriteL->Draw(x, y, Layer::MIDDLE);
 		}
 	}
 }

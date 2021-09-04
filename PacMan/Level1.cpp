@@ -14,6 +14,7 @@
 #include "Level1.h"
 #include "Level2.h"
 #include "Player.h"
+#include "Ghost.h"
 #include "Pivot.h"
 #include <string>
 #include <fstream>
@@ -36,6 +37,15 @@ void Level1::Init()
 	Player* player = new Player();
 	scene->Add(player, MOVING);
 	player->setScene(scene);
+
+	// cria inimigos no centro ( eixo Y = 365.0f )
+	Ghost* ghost = new Ghost(player, 440.0f, 365.0f);
+	scene->Add(ghost, MOVING);
+	ghost = new Ghost(player, 474.0f, 365.0f, BLACK);
+	scene->Add(ghost, MOVING);
+	ghost = new Ghost(player, 508.0f, 365.0f, PUMPKIN);
+	scene->Add(ghost, MOVING);
+
 	// cria pontos de mudança de direção
 	Pivot* pivot;
 	bool left, right, up, down;

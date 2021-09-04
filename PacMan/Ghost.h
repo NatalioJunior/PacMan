@@ -21,28 +21,46 @@
 #include "Player.h"                     // jogador do PacMan
 
 // ---------------------------------------------------------------------------------
+// Constantes Globais
+
+// estados possíveis para os inimigos;
+enum ENEMYTYPE  { BLACK, WHITE, PUMPKIN };
+enum ENEMYSTATE { PURSUE, FLEE };
 
 class Ghost : public Object
 {
 private:
-    Sprite * sprite = nullptr;          // sprite do player
+    Sprite * spriteL = nullptr;         // sprite do inimigo
+    Sprite* spriteR = nullptr;          // sprite do inimigo
+    Sprite* spriteU = nullptr;          // sprite do inimigo
+    Sprite* spriteD = nullptr;          // sprite do inimigo
     Player * player = nullptr;          // ponteiro para jogador
+    float distX = 0;                    // distância do inimigo em relação ao jogador pelo eixo X
+    float distY = 0;                    // distância do inimigo em relação ao jogador pelo eixo Y
 
 public:
     float velX = 0;                     // velocidade horizontal
     float velY = 0;                     // velocidade vertical
 
-    Ghost(Player * p);                  // construtor
-    ~Ghost();                           // destrutor
+    uint state = PURSUE;                // estado de movimentos do inimigo em relação ao jogador
+    uint currentMove = STOPED;          // movimento atual do inimigo
+    uint nextMove = STOPED;             // próximo movimento do inimigo
+
+    Ghost(Player* p, float X, float Y, uint enemy = WHITE);       // construtor
+    ~Ghost();                                                     // destrutor
+
+    void Stop();                        // pára jogador
+    void Up();                          // muda direção para cima
+    void Down();                        // muda direção para baixo
+    void Left();                        // muda direção para esquerda
+    void Right();                       // muda direção para direita
+
+    void OnCollision(Object* obj);		// resolução da colisão
+    void PivotCollision(Object* obj);	// resolve colisão com pivô
 
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
 };
-
-// ---------------------------------------------------------------------------------
-
-inline void Ghost::Draw()
-{ sprite->Draw(x, y, z); }
 
 // ---------------------------------------------------------------------------------
 

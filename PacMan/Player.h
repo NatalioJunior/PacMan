@@ -34,16 +34,16 @@ private:
 	Sprite* spriteR = nullptr;         // sprite do player indo para direita
 	Sprite* spriteU = nullptr;         // sprite do player indo para cima
 	Sprite* spriteD = nullptr;         // sprite do player indo para baixo
-	float velX = 0;                     // velocidade horizontal do player
-	float velY = 0;                     // velocidade vertical do player
+	float velX = 0;                    // velocidade horizontal do player
+	float velY = 0;                    // velocidade vertical do player
 
 	static Scene* scene;
 
-	int scoreP =0;
+	int scoreP = 0;
+
 public:
 	uint currState = STOPED;            // estado atual do jogador
 	uint nextState = STOPED;            // próximo estado do jogador
-
 
 	Player();                           // construtor
 	Player(Scene* sc);                  // construtor
@@ -56,9 +56,9 @@ public:
 	void Left();                        // muda direção para esquerda
 	void Right();                       // muda direção para direita
 
-	void OnCollision(Object* obj);     // resolução da colisão
-	void PivotCollision(Object* obj);  // revolve colisão com pivô
-	void foodCollision(Object* obj);
+	void OnCollision(Object* obj);		// resolução da colisão
+	void PivotCollision(Object* obj);	// resolve colisão com pivô
+	void foodCollision(Object* obj);	// resolve colisão com comida
 
 	void Update();                      // atualização do objeto
 	void Draw();                        // desenho do objeto
