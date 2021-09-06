@@ -28,6 +28,10 @@ Ghost::Ghost(Player * p, float X, float Y, uint enemy)
         spriteR = new Sprite("Resources/BlackGhostR.png");
         spriteU = new Sprite("Resources/BlackGhostU.png");
         spriteD = new Sprite("Resources/BlackGhostD.png");
+		fleeL = new Sprite("Resources/BlueGhostL.png");
+		fleeR = new Sprite("Resources/BlueGhostR.png");
+		fleeU = new Sprite("Resources/BlueGhostU.png");
+		fleeD = new Sprite("Resources/BlueGhostD.png");
         break;
         }
     case PUMPKIN: {
@@ -35,6 +39,10 @@ Ghost::Ghost(Player * p, float X, float Y, uint enemy)
         spriteR = new Sprite("Resources/PumpkinR.png");
         spriteU = new Sprite("Resources/PumpkinU.png");
         spriteD = new Sprite("Resources/PumpkinD.png");
+		fleeL = new Sprite("Resources/BluePumpkinL.png");
+		fleeR = new Sprite("Resources/BluePumpkinR.png");
+		fleeU = new Sprite("Resources/BluePumpkinU.png");
+		fleeD = new Sprite("Resources/BluePumpkinD.png");
         break;
         }
     default: {
@@ -42,6 +50,10 @@ Ghost::Ghost(Player * p, float X, float Y, uint enemy)
         spriteR = new Sprite("Resources/WhiteGhostR.png");
         spriteU = new Sprite("Resources/WhiteGhostU.png");
         spriteD = new Sprite("Resources/WhiteGhostD.png");
+		fleeL = new Sprite("Resources/BlueGhostL.png");
+		fleeR = new Sprite("Resources/BlueGhostR.png");
+		fleeU = new Sprite("Resources/BlueGhostU.png");
+		fleeD = new Sprite("Resources/BlueGhostD.png");
         }
     }
 
@@ -55,6 +67,11 @@ Ghost::Ghost(Player * p, float X, float Y, uint enemy)
 
 Ghost::~Ghost()
 {
+	delete fleeL;
+	delete fleeR;
+	delete fleeU;
+	delete fleeD;
+
     delete spriteL;
     delete spriteR;
     delete spriteU;
@@ -71,25 +88,50 @@ void Ghost::Stop() {
 
 void Ghost::Up()
 {
-    velX = 0;
-    velY = -203.0f;
+	if (state == PURSUE) {
+		velX = 0;
+		velY = -185.0f;
+	}
+	if (state == FLEE) {
+		velX = 0;
+		velY = -180.0f;
+	}
+    
 }
 void Ghost::Down()
 {
-    velX = 0;
-    velY = 203.0f;
+	if (state == PURSUE) {
+		velX = 0;
+		velY = 185.0f;
+	}
+	if (state == FLEE) {
+		velX = 0;
+		velY = 180.0f;
+	}
 }
 
 void Ghost::Left()
 {
-    velX = -203.0f;
-    velY = 0;
+	if (state == PURSUE) {
+		velX = -185.0f;
+		velY = 0;
+	}
+	if (state == FLEE) {
+		velX = -180.0f;
+		velY = 0;
+	}
 }
 
 void Ghost::Right()
 {
-    velX = 203.0f;
-    velY = 0;
+	if (state == PURSUE) {
+		velX = 185.0f;
+		velY = 0;
+	}
+	if (state == FLEE) {
+		velX = 180.0f;
+		velY = 0;
+	}
 }
 
 // ---------------------------------------------------------------------------------
@@ -106,50 +148,52 @@ void Ghost::PivotCollision(Object* obj)
 	distX = player->X() - x;
 	distY = player->Y() - y;
 
-	if (distX > 25.0f || distX < -25.0f) {
-		if (distX < 0)
-		{
-			nextMove = LEFT;
-
-			if (currentMove == RIGHT || currentMove == STOPED)
+	if (state == PURSUE) {
+		if (distX > 25.0f || distX < -25.0f) {
+			if (distX < 0)
 			{
-				currentMove = LEFT;
-				Left();
-			}
-		}
-		else {
-			if (distX > 0)
-			{
-				nextMove = RIGHT;
+				nextMove = LEFT;
 
-				if (currentMove == LEFT || currentMove == STOPED)
+				if (currentMove == RIGHT || currentMove == STOPED)
 				{
-					currentMove = RIGHT;
-					Right();
+					currentMove = LEFT;
+					Left();
+				}
+			}
+			else {
+				if (distX > 0)
+				{
+					nextMove = RIGHT;
+
+					if (currentMove == LEFT || currentMove == STOPED)
+					{
+						currentMove = RIGHT;
+						Right();
+					}
 				}
 			}
 		}
-	}
-	else {
-		if (distY < 0)
-		{
-			nextMove = UP;
-
-			if (currentMove == DOWN || currentMove == STOPED)
-			{
-				currentMove = UP;
-				Up();
-			}
-		}
 		else {
-			if (distY > 0)
+			if (distY < 0)
 			{
-				nextMove = DOWN;
+				nextMove = UP;
 
-				if (currentMove == UP || currentMove == STOPED)
+				if (currentMove == DOWN || currentMove == STOPED)
 				{
-					currentMove = DOWN;
-					Down();
+					currentMove = UP;
+					Up();
+				}
+			}
+			else {
+				if (distY > 0)
+				{
+					nextMove = DOWN;
+
+					if (currentMove == UP || currentMove == STOPED)
+					{
+						currentMove = DOWN;
+						Down();
+					}
 				}
 			}
 		}
@@ -208,13 +252,17 @@ void Ghost::PivotCollision(Object* obj)
 				MoveTo(p->X(), Y());
 				currentMove = STOPED;
 				Stop();
-				if (distY > 0 && p->down) {
+				if (p->down) {
 					currentMove = DOWN;
 					Down();
 				}
-				else {
+				else if (p->up){
 					currentMove = UP;
 					Up();
+				}
+				else {
+					currentMove = RIGHT;
+					Right();
 				}
 			}
 		}
@@ -229,13 +277,17 @@ void Ghost::PivotCollision(Object* obj)
 					MoveTo(p->X(), Y());
 					currentMove = STOPED;
 					Stop();
-					if (distY > 0 && p->down) {
+					if (p->down) {
 						currentMove = DOWN;
 						Down();
 					}
-					else {
+					else if (p->up){
 						currentMove = UP;
 						Up();
+					}
+					else {
+						currentMove = RIGHT;
+						Right();
 					}
 				}
 			}
@@ -282,13 +334,17 @@ void Ghost::PivotCollision(Object* obj)
 				MoveTo(p->X(), Y());
 				currentMove = STOPED;
 				Stop();
-				if (distY > 0 && p->down) {
+				if (p->down) {
 					currentMove = DOWN;
 					Down();
 				}
-				else {
+				else if(p->up){
 					currentMove = UP;
 					Up();
+				}
+				else {
+					currentMove = LEFT;
+					Left();
 				}
 			}
 		}
@@ -307,13 +363,17 @@ void Ghost::PivotCollision(Object* obj)
 					MoveTo(p->X(), Y());
 					currentMove = STOPED;
 					Stop();
-					if (distY > 0 && p->down) {
+					if (p->down) {
 						currentMove = DOWN;
 						Down();
 					}
-					else {
+					else if (p->up){
 						currentMove = UP;
 						Up();
+					}
+					else {
+						currentMove = LEFT;
+						Left();
 					}
 				}
 			}
@@ -356,13 +416,17 @@ void Ghost::PivotCollision(Object* obj)
 				MoveTo(p->X(), Y());
 				currentMove = STOPED;
 				Stop();
-				if (distX > 0 && p->right) {
+				if (p->right) {
 					currentMove = RIGHT;
 					Right();
 				}
-				else {
+				else if (p->left){
 					currentMove = LEFT;
 					Left();
+				}
+				else {
+					currentMove = DOWN;
+					Down();
 				}
 			}
 		}
@@ -399,13 +463,17 @@ void Ghost::PivotCollision(Object* obj)
 					MoveTo(p->X(), Y());
 					currentMove = STOPED;
 					Stop();
-					if (distX > 0 && p->right) {
+					if (p->right) {
 						currentMove = RIGHT;
 						Right();
 					}
-					else {
+					else if (p->left){
 						currentMove = LEFT;
 						Left();
+					}
+					else {
+						currentMove = DOWN;
+						Down();
 					}
 				}
 			}
@@ -429,13 +497,17 @@ void Ghost::PivotCollision(Object* obj)
 				MoveTo(p->X(), Y());
 				currentMove = STOPED;
 				Stop();
-				if (distX > 0 && p->right) {
+				if (p->right) {
 					currentMove = RIGHT;
 					Right();
 				}
-				else {
+				else if (p->left){
 					currentMove = LEFT;
 					Left();
+				}
+				else {
+					currentMove = UP;
+					Up();
 				}
 			}
 		}
@@ -476,13 +548,17 @@ void Ghost::PivotCollision(Object* obj)
 					MoveTo(p->X(), Y());
 					currentMove = STOPED;
 					Stop();
-					if (distX > 0 && p->right) {
+					if (p->right) {
 						currentMove = RIGHT;
 						Right();
 					}
-					else {
+					else if (p->left){
 						currentMove = LEFT;
 						Left();
+					}
+					else {
+						currentMove = UP;
+						Up();
 					}
 				}
 			}
@@ -497,7 +573,59 @@ void Ghost::PivotCollision(Object* obj)
 
 void Ghost::Update()
 {
-   
+	state = !player->state;
+
+	if (state == FLEE) {
+		if (distX > distY || player->Y() == y) {
+			if (distX < 0)
+			{
+				nextMove = RIGHT;
+
+				if (currentMove == LEFT || currentMove == STOPED)
+				{
+					currentMove = RIGHT;
+					Right();
+				}
+			}
+			else {
+				if (distX > 0)
+				{
+					nextMove = LEFT;
+
+					if (currentMove == RIGHT || currentMove == STOPED)
+					{
+						currentMove = LEFT;
+						Left();
+					}
+				}
+			}
+		}
+		else {
+			if (distY < 0)
+			{
+				nextMove = DOWN;
+
+				if (currentMove == UP || currentMove == STOPED)
+				{
+					currentMove = DOWN;
+					Down();
+				}
+			}
+			else {
+				if (distY > 0)
+				{
+					nextMove = UP;
+
+					if (currentMove == DOWN || currentMove == STOPED)
+					{
+						currentMove = UP;
+						Up();
+					}
+				}
+			}
+		}
+   }
+
     // atualiza posição
     Translate(velX * gameTime, velY * gameTime);
 
@@ -519,21 +647,41 @@ void Ghost::Update()
 
 void Ghost::Draw()
 {
-    switch (currentMove)
-    {
-    case STOPED: spriteD->Draw(x, y, Layer::UPPER); break;
-    case LEFT:  spriteL->Draw(x, y, Layer::UPPER); break;
-    case RIGHT: spriteR->Draw(x, y, Layer::UPPER); break;
-    case UP:    spriteU->Draw(x, y, Layer::UPPER); break;
-    case DOWN:  spriteD->Draw(x, y, Layer::UPPER); break;
-    default:
-        switch (nextMove)
-        {
-        case LEFT:  spriteL->Draw(x, y, Layer::UPPER); break;
-        case RIGHT: spriteR->Draw(x, y, Layer::UPPER); break;
-        case UP:    spriteU->Draw(x, y, Layer::UPPER); break;
-        case DOWN:  spriteD->Draw(x, y, Layer::UPPER); break;
-        default:    spriteL->Draw(x, y, Layer::UPPER);
-        }
-    }
+	if (state == PURSUE)
+		switch (currentMove)
+		{
+		case STOPED: spriteD->Draw(x, y, Layer::UPPER); break;
+		case LEFT:  spriteL->Draw(x, y, Layer::UPPER); break;
+		case RIGHT: spriteR->Draw(x, y, Layer::UPPER); break;
+		case UP:    spriteU->Draw(x, y, Layer::UPPER); break;
+		case DOWN:  spriteD->Draw(x, y, Layer::UPPER); break;
+		default:
+			switch (nextMove)
+			{
+			case LEFT:  spriteL->Draw(x, y, Layer::UPPER); break;
+			case RIGHT: spriteR->Draw(x, y, Layer::UPPER); break;
+			case UP:    spriteU->Draw(x, y, Layer::UPPER); break;
+			case DOWN:  spriteD->Draw(x, y, Layer::UPPER); break;
+			default:    spriteL->Draw(x, y, Layer::UPPER);
+			}
+		}
+	if (state == FLEE)
+		switch (currentMove)
+		{
+		case STOPED: fleeD->Draw(x, y, Layer::UPPER); break;
+		case LEFT:  fleeL->Draw(x, y, Layer::UPPER); break;
+		case RIGHT: fleeR->Draw(x, y, Layer::UPPER); break;
+		case UP:    fleeU->Draw(x, y, Layer::UPPER); break;
+		case DOWN:  fleeD->Draw(x, y, Layer::UPPER); break;
+		default:
+			switch (nextMove)
+			{
+			case LEFT:  fleeL->Draw(x, y, Layer::UPPER); break;
+			case RIGHT: fleeR->Draw(x, y, Layer::UPPER); break;
+			case UP:    fleeU->Draw(x, y, Layer::UPPER); break;
+			case DOWN:  fleeD->Draw(x, y, Layer::UPPER); break;
+			default:    fleeL->Draw(x, y, Layer::UPPER);
+			}
+		}
+    
 }

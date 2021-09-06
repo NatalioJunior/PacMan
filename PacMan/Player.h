@@ -23,7 +23,8 @@
 // Constantes Globais
 
 // estados possíveis para o jogador
-enum PLAYERSTATE { STOPED, UP, DOWN, LEFT, RIGHT };
+enum PLAYERMOVE { STOPED, UP, DOWN, LEFT, RIGHT };
+enum PLAYESTATE { PURSUE, FLEE };
 
 // ---------------------------------------------------------------------------------
 
@@ -42,6 +43,7 @@ private:
 	int scoreP = 0;
 
 public:
+	uint state = FLEE;
 	uint currState = STOPED;            // estado atual do jogador
 	uint nextState = STOPED;            // próximo estado do jogador
 
@@ -59,6 +61,7 @@ public:
 	void OnCollision(Object* obj);		// resolução da colisão
 	void PivotCollision(Object* obj);	// resolve colisão com pivô
 	void foodCollision(Object* obj);	// resolve colisão com comida
+	void specialCollision(Object* obj); // resolve colisão com comida especial
 
 	void Update();                      // atualização do objeto
 	void Draw();                        // desenho do objeto

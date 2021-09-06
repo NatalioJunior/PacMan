@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "Pivot.h"
 #include "Food.h"
+#include "Special.h"
 
 
 // ---------------------------------------------------------------------------------
@@ -70,7 +71,7 @@ void Player::Stop()
 void Player::Up()
 {
 	velX = 0;
-	velY = -200.0f;
+	velY = -190.0f;
 }
 
 // ---------------------------------------------------------------------------------
@@ -78,14 +79,14 @@ void Player::Up()
 void Player::Down()
 {
 	velX = 0;
-	velY = 200.0f;
+	velY = 190.0f;
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Left()
 {
-	velX = -200.0f;
+	velX = -190.0f;
 	velY = 0;
 }
 
@@ -93,7 +94,7 @@ void Player::Left()
 
 void Player::Right()
 {
-	velX = 200.0f;
+	velX = 190.0f;
 	velY = 0;
 }
 
@@ -105,6 +106,8 @@ void Player::OnCollision(Object* obj)
 		PivotCollision(obj);
 	if (obj->Type() == FOOD)
 		foodCollision(obj);
+	if (obj->Type() == SPECIAL)
+		specialCollision(obj);
 
 }
 
@@ -115,7 +118,12 @@ void Player::foodCollision(Object* obj) {
 	scene->Delete(fd, STATIC);
 }
 
-
+void Player::specialCollision(Object* obj) {
+	Special * sp = (Special*)obj;
+	setScore(getScore() + 10);
+	scene->Delete(sp, STATIC);
+	state = PURSUE;
+}
 // ---------------------------------------------------------------------------------
 
 void Player::PivotCollision(Object* obj)

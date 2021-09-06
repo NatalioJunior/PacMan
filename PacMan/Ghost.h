@@ -25,11 +25,15 @@
 
 // estados possíveis para os inimigos;
 enum ENEMYTYPE  { BLACK, WHITE, PUMPKIN };
-enum ENEMYSTATE { PURSUE, FLEE };
 
 class Ghost : public Object
 {
 private:
+    Sprite* fleeL = nullptr;            // sprite de fuga do inimigo
+    Sprite* fleeR = nullptr;            // sprite de fuga do inimigo
+    Sprite* fleeU = nullptr;            // sprite de fuga do inimigo
+    Sprite* fleeD = nullptr;            // sprite de fuga do inimigo
+
     Sprite * spriteL = nullptr;         // sprite do inimigo
     Sprite* spriteR = nullptr;          // sprite do inimigo
     Sprite* spriteU = nullptr;          // sprite do inimigo

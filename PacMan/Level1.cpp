@@ -19,6 +19,7 @@
 #include <string>
 #include <fstream>
 #include "Food.h"
+#include "Special.h"
 using std::ifstream;
 using std::string;
 
@@ -39,9 +40,9 @@ void Level1::Init()
 	player->setScene(scene);
 
 	// cria inimigos no centro ( eixo Y = 365.0f )
-	Ghost* ghost = new Ghost(player, 440.0f, 365.0f);
+	Ghost* ghost = new Ghost(player, 460.0f, 365.0f);
 	scene->Add(ghost, MOVING);
-	ghost = new Ghost(player, 474.0f, 365.0f, BLACK);
+	ghost = new Ghost(player, 484.0f, 365.0f, BLACK);
 	scene->Add(ghost, MOVING);
 	ghost = new Ghost(player, 508.0f, 365.0f, PUMPKIN);
 	scene->Add(ghost, MOVING);
@@ -78,7 +79,11 @@ void Level1::Init()
 
 	// cria comidas no mapa
 	foodSprite = new Image("Resources/Food.png");
+	specialSprite = new Image("Resources/Special.png");
 	Food* food;
+	Special* special = new Special(specialSprite);
+	special->MoveTo(540, 271);
+	scene->Add(special, STATIC);
 
 	float foodPosX, foodPosY;
 	fin.open("FoodL1.txt");
@@ -101,6 +106,8 @@ void Level1::Init()
 
 	fin.close();
 
+
+	//160.0f e 449.0f
 }
 
 // ------------------------------------------------------------------------------
@@ -110,6 +117,7 @@ void Level1::Finalize()
 	delete backg;
 	delete scene;
 	delete foodSprite;
+	delete specialSprite;
 }
 
 // ------------------------------------------------------------------------------

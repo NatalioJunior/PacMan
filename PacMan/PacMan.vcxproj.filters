@@ -90,6 +90,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>Engine\Arquivos de Origem</Filter>
     </ClCompile>
+    <ClCompile Include="Special.cpp">
+      <Filter>Game\Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -159,6 +162,9 @@
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="LvlBase.h">
+      <Filter>Game\Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="Special.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>
