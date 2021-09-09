@@ -12,6 +12,7 @@
 #include "Engine.h"
 #include "Home.h"
 #include "Level1.h"
+#include "Level2.h"
 
 // ------------------------------------------------------------------------------
 
@@ -47,6 +48,9 @@ void Home::Update()
     // passa ao primeiro nível com ENTER
     if (window->KeyDown(VK_RETURN))
         Engine::Next<Level1>();
+    
+    if (window->KeyDown(VK_NUMPAD1))
+        Engine::Next<Level2>();
 }
 
 // ------------------------------------------------------------------------------

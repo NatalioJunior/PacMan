@@ -24,11 +24,12 @@ void Level2::Init()
 	// cria gerenciador de cena
 	scene = new Scene();
 
-	backg = new Sprite("Resources/lvl2.png");
+	backg = new Sprite("Resources/Level2Dark.png");
 
 	// cria jogador
 	Player * player = new Player();
 	scene->Add(player, MOVING);
+	player->MoveTo(479 * 1.0f, 420 * 1.0f);
 	player->setScene(scene);
 
 	// cria inimigos no centro ( eixo Y = 365.0f )
@@ -46,7 +47,7 @@ void Level2::Init()
 
 	// cria pivôs a partir do arquivo
 	ifstream fin;
-	fin.open("PivotsL1.txt");
+	fin.open("PivotsL2.txt");
 	fin >> left;
 	while (!fin.eof())
 	{
@@ -78,7 +79,7 @@ void Level2::Init()
 	scene->Add(special, STATIC);
 
 	float foodPosX, foodPosY;
-	fin.open("FoodL1.txt");
+	fin.open("FoodL2.txt");
 	fin >> foodPosX;
 	while (!fin.eof()) {
 		if (fin.good()) {
