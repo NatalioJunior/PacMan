@@ -146,14 +146,16 @@ void Level1::Update()
 	}
 	else
 	{
+		// COMANDOS DO PLAYER
+		if (player->currentComand == HOME) {
+			home();
+		}
+		
 		// atualiza cena
 		scene->Update();
 		scene->CollisionDetection();
 	}
-	// COMANDOS DO PLAYER
-	if (player->currentComand == HOME) {
-		home();
-	}
+	
 }
 
 // ------------------------------------------------------------------------------

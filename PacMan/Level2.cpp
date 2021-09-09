@@ -21,7 +21,7 @@ void Level2::Init()
 	// cria gerenciador de cena
 	scene = new Scene();
 
-	backg = new Sprite("Resources/Level1Dark.png");
+	backg = new Sprite("Resources/lvl2.png");
 
 	// cria jogador
 	player = new Player();
