@@ -14,8 +14,6 @@
 #include "Pivot.h"
 #include "Food.h"
 #include "Special.h"
-#include "Engine.h"
-#include "Home.h"
 #include "Ghost.h"
 
 // ---------------------------------------------------------------------------------
@@ -34,7 +32,7 @@ Player::Player()
 	MoveTo(480.0f, 445.0f);
 	type = PLAYER;
 
-	stateTime = 10;
+	stateTime = 5;
 }
 Player::Player(Scene* sc)
 {
@@ -127,7 +125,7 @@ void Player::foodCollision(Object* obj) {
 void Player::ghostCollision(Object* obj) {
 	if (state == FLEE) {
 		//MoveTo(480.0f, 445.0f);
-		currentComand = HOME;
+		game->setGameState(HOME);
 	}
 	else {
 		scene->Delete((Ghost*)obj, MOVING);
@@ -422,6 +420,7 @@ void Player::PivotCollision(Object* obj)
 
 void Player::Update()
 {
+
 	if (window->KeyDown(VK_LEFT))
 	{
 		nextState = LEFT;
@@ -482,17 +481,13 @@ void Player::Update()
 	if (Y() - 20 > window->Height())
 		MoveTo(x, -20.0f);
 
-
-
 	if (state == PURSUE) {
 		stateTime -= gameTime;
 	}
 	if (stateTime <= 0) {
 		state = FLEE;
-		stateTime = 10;
+		stateTime = 5;
 	}
-
-
 
 }
 

@@ -12,12 +12,13 @@
 #include "Engine.h"
 #include "Home.h"
 #include "Level1.h"
-#include "LvlBase.h"
 
 // ------------------------------------------------------------------------------
 
 void Home::Init()
 {
+
+    setGameState(HOME);                                   // indica em qual tela está
     backg = new Sprite("Resources/TitleScreen.jpg");      //    Sprite a definir
 }
 

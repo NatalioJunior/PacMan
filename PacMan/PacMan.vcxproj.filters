@@ -161,9 +161,6 @@
     <ClInclude Include="Pivot.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="LvlBase.h">
-      <Filter>Game\Arquivos de Cabeçalho</Filter>
-    </ClInclude>
     <ClInclude Include="Special.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>

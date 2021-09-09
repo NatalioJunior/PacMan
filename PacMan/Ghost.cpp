@@ -94,7 +94,7 @@ void Ghost::Up()
 	}
 	if (state == FLEE) {
 		velX = 0;
-		velY = -180.0f;
+		velY = -170.0f;
 	}
     
 }
@@ -106,7 +106,7 @@ void Ghost::Down()
 	}
 	if (state == FLEE) {
 		velX = 0;
-		velY = 180.0f;
+		velY = 170.0f;
 	}
 }
 
@@ -117,7 +117,7 @@ void Ghost::Left()
 		velY = 0;
 	}
 	if (state == FLEE) {
-		velX = -180.0f;
+		velX = -170.0f;
 		velY = 0;
 	}
 }
@@ -129,7 +129,7 @@ void Ghost::Right()
 		velY = 0;
 	}
 	if (state == FLEE) {
-		velX = 180.0f;
+		velX = 170.0f;
 		velY = 0;
 	}
 }

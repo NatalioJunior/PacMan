@@ -23,6 +23,8 @@
 
 // ---------------------------------------------------------------------------------
 
+enum STATECOMAND { HOME, LVL1, LVL2, OVER };
+
 class Game
 {
     // Membros protegidos são privados para o mundo externo mas
@@ -31,15 +33,19 @@ class Game
 protected:
     static Window* & window;                    // janela do jogo
     static float   & gameTime;                  // tempo do último quadro
+    uint GameState;                             // tela que o Game está.
 
 public:
     Game();                                     // construtor
     virtual ~Game();                            // destrutor
     
+    uint getGameState();
+    void setGameState(uint);
+
     // Métodos que podem ser sobrescritos para implementar 
     // funcionalidade específica para o jogo. Eles já possuem
     // uma implementação padrão.
-
+    
     virtual void OnPause();                     // pausa do jogo
 
     // Estes métodos são puramente virtuais, isto é, devem ser 
@@ -52,5 +58,10 @@ public:
 };
 
 // ---------------------------------------------------------------------------------
+// MÉTODOS INLINE
+inline uint Game::getGameState()
+{  return GameState;  }
 
+inline void Game::setGameState(uint tela)
+{   GameState = tela;   }
 #endif

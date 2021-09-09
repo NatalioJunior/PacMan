@@ -61,6 +61,7 @@ public:
 
     void OnCollision(Object* obj);		// resolução da colisão
     void PivotCollision(Object* obj);	// resolve colisão com pivô
+    void ghostCollision(Object* obj);	//Colisao com ghost
 
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto

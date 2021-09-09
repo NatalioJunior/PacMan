@@ -27,6 +27,7 @@ private:
     bool ctrlKeyESC = false;        // controle do ESC
 
 public:
+
     void Init();                    // inicialização
     void Update();                  // atualização
     void Draw();                    // desenho
