@@ -14,7 +14,9 @@
 #include "Pivot.h"
 #include "Food.h"
 #include "Special.h"
-
+#include "Engine.h"
+#include "Home.h"
+#include "Ghost.h"
 
 // ---------------------------------------------------------------------------------
 
@@ -31,6 +33,8 @@ Player::Player()
 	bbox = new Rect(-20, -20, 20, 20);
 	MoveTo(480.0f, 445.0f);
 	type = PLAYER;
+
+	stateTime = 10;
 }
 Player::Player(Scene* sc)
 {
@@ -102,24 +106,35 @@ void Player::Right()
 
 void Player::OnCollision(Object* obj)
 {
+	//Testando quais objetos estao colidindo
 	if (obj->Type() == PIVOT)
 		PivotCollision(obj);
 	if (obj->Type() == FOOD)
 		foodCollision(obj);
 	if (obj->Type() == SPECIAL)
 		specialCollision(obj);
-
+	if (obj->Type() == GHOST)
+		ghostCollision(obj);
 }
 
 // ---------------------------------------------------------------------------------
+//COLISOES personalizadas 
 void Player::foodCollision(Object* obj) {
 	Food* fd = (Food*)obj;
-	setScore( getScore() + 10);
+	setScore(getScore() + 10);
 	scene->Delete(fd, STATIC);
 }
-
+void Player::ghostCollision(Object* obj) {
+	if (state == FLEE) {
+		//MoveTo(480.0f, 445.0f);
+		currentComand = HOME;
+	}
+	else {
+		scene->Delete((Ghost*)obj, MOVING);
+	}
+}
 void Player::specialCollision(Object* obj) {
-	Special * sp = (Special*)obj;
+	Special* sp = (Special*)obj;
 	setScore(getScore() + 10);
 	scene->Delete(sp, STATIC);
 	state = PURSUE;
@@ -466,6 +481,19 @@ void Player::Update()
 
 	if (Y() - 20 > window->Height())
 		MoveTo(x, -20.0f);
+
+
+
+	if (state == PURSUE) {
+		stateTime -= gameTime;
+	}
+	if (stateTime <= 0) {
+		state = FLEE;
+		stateTime = 10;
+	}
+
+
+
 }
 
 // ---------------------------------------------------------------------------------

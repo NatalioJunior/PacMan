@@ -8,6 +8,8 @@
 // Descrição:   Nível 1 do jogo PacMan
 //
 **********************************************************************************/
+#include <string>
+#include <fstream>
 
 #include "Engine.h"
 #include "Home.h"
@@ -16,8 +18,6 @@
 #include "Player.h"
 #include "Ghost.h"
 #include "Pivot.h"
-#include <string>
-#include <fstream>
 #include "Food.h"
 #include "Special.h"
 using std::ifstream;
@@ -31,16 +31,15 @@ void Level1::Init()
 	// cria gerenciador de cena
 	scene = new Scene();
 
-	// cria background
-	backg = new Sprite("Resources/Level1.jpg");
+	backg = new Sprite("Resources/Level1Dark.png");
 
 	// cria jogador
-	Player* player = new Player();
+	player = new Player();
 	scene->Add(player, MOVING);
 	player->setScene(scene);
 
 	// cria inimigos no centro ( eixo Y = 365.0f )
-	Ghost* ghost = new Ghost(player, 460.0f, 365.0f);
+	Ghost* ghost = new Ghost(player, 460.0f, 280.0f);
 	scene->Add(ghost, MOVING);
 	ghost = new Ghost(player, 484.0f, 365.0f, BLACK);
 	scene->Add(ghost, MOVING);
@@ -143,13 +142,17 @@ void Level1::Update()
 	else if (window->KeyDown('N'))
 	{
 		// passa manualmente para o próximo nível
-		//Engine::Next<Level2>();
+		Engine::Next<Level2>();
 	}
 	else
 	{
 		// atualiza cena
 		scene->Update();
 		scene->CollisionDetection();
+	}
+	// COMANDOS DO PLAYER
+	if (player->currentComand == HOME) {
+		home();
 	}
 }
 
@@ -164,6 +167,17 @@ void Level1::Draw()
 	// desenha bounding box dos objetos
 	if (viewBBox)
 		scene->DrawBBox();
+	
 }
 
 // ------------------------------------------------------------------------------
+//CONTROLADORES DE LVL
+void Level1::nextLvl() {
+	Engine::Next<Home>();
+}
+void Level1::restartLvl() {
+	Engine::Next<Level1>();
+}
+void Level1::home() {
+	Engine::Next<Home>();
+}

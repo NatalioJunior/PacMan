@@ -25,6 +25,7 @@
 // estados possíveis para o jogador
 enum PLAYERMOVE { STOPED, UP, DOWN, LEFT, RIGHT };
 enum PLAYESTATE { PURSUE, FLEE };
+enum PLAYERCOMAND {NONE,NEXT,RESTART,HOME};
 
 // ---------------------------------------------------------------------------------
 
@@ -42,10 +43,14 @@ private:
 
 	int scoreP = 0;
 
+	float stateTime = 0;
+
+
 public:
 	uint state = FLEE;
 	uint currState = STOPED;            // estado atual do jogador
 	uint nextState = STOPED;            // próximo estado do jogador
+	uint currentComand = NONE;
 
 	Player();                           // construtor
 	Player(Scene* sc);                  // construtor
@@ -62,6 +67,8 @@ public:
 	void PivotCollision(Object* obj);	// resolve colisão com pivô
 	void foodCollision(Object* obj);	// resolve colisão com comida
 	void specialCollision(Object* obj); // resolve colisão com comida especial
+	void ghostCollision(Object* obj); //Colisao com ghost
+
 
 	void Update();                      // atualização do objeto
 	void Draw();                        // desenho do objeto
