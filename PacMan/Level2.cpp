@@ -18,13 +18,16 @@ Scene* Level2::scene = nullptr;
 
 void Level2::Init()
 {
+	// indica em qual tela está
+	setGameState(LVL2);
+
 	// cria gerenciador de cena
 	scene = new Scene();
 
 	backg = new Sprite("Resources/lvl2.png");
 
 	// cria jogador
-	player = new Player();
+	Player * player = new Player();
 	scene->Add(player, MOVING);
 	player->setScene(scene);
 
@@ -141,7 +144,7 @@ void Level2::Update()
 		scene->CollisionDetection();
 	}
 	// COMANDOS DO PLAYER
-	if (player->currentComand == HOME) {
+	if (getGameState() == HOME) {
 		home();
 	}
 }

@@ -35,6 +35,7 @@ private:
 
 public:
     static Scene  * scene;          // gerenciador de cena
+
     void Init();                    // inicializa jogo
     void Update();                  // atualiza lógica do jogo
     void Draw();                    // desenha jogo

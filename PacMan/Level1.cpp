@@ -28,6 +28,9 @@ Scene* Level1::scene = nullptr;
 
 void Level1::Init()
 {
+	// indica em qual tela está
+	setGameState(LVL1);
+
 	// cria gerenciador de cena
 	scene = new Scene();
 
@@ -146,16 +149,17 @@ void Level1::Update()
 	}
 	else
 	{
-		// COMANDOS DO PLAYER
-		if (player->currentComand == HOME) {
-			home();
-		}
 		
 		// atualiza cena
 		scene->Update();
 		scene->CollisionDetection();
 	}
-	
+
+	// COMANDOS DO PLAYER
+	if (getGameState() == HOME) {
+		home();
+	}
+
 }
 
 // ------------------------------------------------------------------------------
@@ -182,4 +186,5 @@ void Level1::restartLvl() {
 }
 void Level1::home() {
 	Engine::Next<Home>();
+	
 }

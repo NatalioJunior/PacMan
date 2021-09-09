@@ -196,7 +196,6 @@
     <ClInclude Include="Image.h" />
     <ClInclude Include="Level1.h" />
     <ClInclude Include="Level2.h" />
-    <ClInclude Include="LvlBase.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PacMan.h" />
     <ClInclude Include="Pivot.h" />
