@@ -16,7 +16,7 @@
 
 // ---------------------------------------------------------------------------------
 
-Ghost::Ghost(Player * p, float X, float Y, uint enemy)
+Ghost::Ghost(Player * p, float X, float Y, float time, uint enemy)
 {
     // Inimigo deve movimentar-se em relação a tal player
     player = p;
@@ -61,6 +61,8 @@ Ghost::Ghost(Player * p, float X, float Y, uint enemy)
     bbox = new Rect(-20, -20, 20, 20);
     MoveTo(X, Y);
     type = GHOST;
+
+	stateTime = time;
 }
 
 // ---------------------------------------------------------------------------------
@@ -94,7 +96,7 @@ void Ghost::Up()
 	}
 	if (state == FLEE) {
 		velX = 0;
-		velY = -170.0f;
+		velY = -175.0f;
 	}
     
 }
@@ -106,7 +108,7 @@ void Ghost::Down()
 	}
 	if (state == FLEE) {
 		velX = 0;
-		velY = 170.0f;
+		velY = 175.0f;
 	}
 }
 
@@ -117,7 +119,7 @@ void Ghost::Left()
 		velY = 0;
 	}
 	if (state == FLEE) {
-		velX = -170.0f;
+		velX = -175.0f;
 		velY = 0;
 	}
 }
@@ -129,7 +131,7 @@ void Ghost::Right()
 		velY = 0;
 	}
 	if (state == FLEE) {
-		velX = 170.0f;
+		velX = 175.0f;
 		velY = 0;
 	}
 }
@@ -641,6 +643,15 @@ void Ghost::Update()
 
     if (Y() - 20 > window->Height())
         MoveTo(x, -20.0f);
+
+	if (state == PURSUE) {
+		stateTime -= gameTime;
+	}
+	if (stateTime <= 0 && !gameStart) {
+		MoveTo(479.0f, 360.0f);
+		gameStart = !gameStart;
+
+	}
 }
 
 // ---------------------------------------------------------------------------------

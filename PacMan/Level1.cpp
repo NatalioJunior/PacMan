@@ -39,14 +39,15 @@ void Level1::Init()
 	// cria jogador
 	player = new Player();
 	scene->Add(player, MOVING);
+	player->MoveTo(480.0f, 445.0f);
 	player->setScene(scene);
 
 	// cria inimigos no centro ( eixo Y = 365.0f )
 	Ghost* ghost = new Ghost(player, 460.0f, 280.0f);
 	scene->Add(ghost, MOVING);
-	ghost = new Ghost(player, 484.0f, 365.0f, BLACK);
+	ghost = new Ghost(player, 435.0f, 370.0f, 10.0f, BLACK);
 	scene->Add(ghost, MOVING);
-	ghost = new Ghost(player, 508.0f, 365.0f, PUMPKIN);
+	ghost = new Ghost(player, 520.0f, 370.0f, 20.0f, PUMPKIN);
 	scene->Add(ghost, MOVING);
 
 	// cria pontos de mudança de direção
@@ -84,7 +85,10 @@ void Level1::Init()
 	specialSprite = new Image("Resources/Special.png");
 	Food* food;
 	Special* special = new Special(specialSprite);
-	special->MoveTo(540, 271);
+	special->MoveTo(60.0f, 80.0f);
+	scene->Add(special, STATIC);
+	special = new Special(specialSprite);
+	special->MoveTo(900.0f, 630.0f);
 	scene->Add(special, STATIC);
 
 	float foodPosX, foodPosY;
@@ -108,8 +112,6 @@ void Level1::Init()
 
 	fin.close();
 
-
-	//160.0f e 449.0f
 }
 
 // ------------------------------------------------------------------------------
@@ -157,7 +159,7 @@ void Level1::Update()
 
 	// COMANDOS DO PLAYER
 	if (getGameState() == HOME) {
-		home();
+		Engine::Next<Home>();
 	}
 
 }
@@ -177,14 +179,3 @@ void Level1::Draw()
 }
 
 // ------------------------------------------------------------------------------
-//CONTROLADORES DE LVL
-void Level1::nextLvl() {
-	Engine::Next<Home>();
-}
-void Level1::restartLvl() {
-	Engine::Next<Level1>();
-}
-void Level1::home() {
-	Engine::Next<Home>();
-	
-}

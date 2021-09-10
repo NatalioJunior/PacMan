@@ -38,11 +38,11 @@ private:
 	float velX = 0;                    // velocidade horizontal do player
 	float velY = 0;                    // velocidade vertical do player
 
-	static Scene* scene;
+	static Scene* scene;			   // ponteiro para Scene
 
-	int scoreP = 0;
+	int scoreP = 0;					   // contador de pontos do jogo
 
-	float stateTime = 0;
+	float stateTime = 0;			   // cronômetro para passagem do efeito azul
 
 
 public:

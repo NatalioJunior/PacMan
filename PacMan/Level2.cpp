@@ -27,17 +27,17 @@ void Level2::Init()
 	backg = new Sprite("Resources/Level2Dark.png");
 
 	// cria jogador
-	Player * player = new Player();
+	player = new Player();
 	scene->Add(player, MOVING);
-	player->MoveTo(479 * 1.0f, 420 * 1.0f);
+	player->MoveTo(479.0f, 420.0f);
 	player->setScene(scene);
 
 	// cria inimigos no centro ( eixo Y = 365.0f )
 	Ghost* ghost = new Ghost(player, 460.0f, 280.0f);
 	scene->Add(ghost, MOVING);
-	ghost = new Ghost(player, 484.0f, 365.0f, BLACK);
+	ghost = new Ghost(player, 434.0f, 360.0f, 10.0f, BLACK);
 	scene->Add(ghost, MOVING);
-	ghost = new Ghost(player, 508.0f, 365.0f, PUMPKIN);
+	ghost = new Ghost(player, 528.0f, 360.0f, 20.0f, PUMPKIN);
 	scene->Add(ghost, MOVING);
 
 	// cria pontos de mudança de direção
@@ -75,7 +75,10 @@ void Level2::Init()
 	specialSprite = new Image("Resources/Special.png");
 	Food* food;
 	Special* special = new Special(specialSprite);
-	special->MoveTo(540, 271);
+	special->MoveTo(160.0f, 320.0f);
+	scene->Add(special, STATIC);
+	special = new Special(specialSprite);
+	special->MoveTo(800.0f, 390.f);
 	scene->Add(special, STATIC);
 
 	float foodPosX, foodPosY;
@@ -85,7 +88,7 @@ void Level2::Init()
 		if (fin.good()) {
 			fin >> foodPosY;
 			food = new Food(foodSprite);
-
+	
 			food->MoveTo(foodPosX, foodPosY);
 			scene->Add(food, STATIC);
 		}
@@ -96,11 +99,9 @@ void Level2::Init()
 		}
 		fin >> foodPosX;
 	}
-
+	
 	fin.close();
 
-
-	//160.0f e 449.0f
 }
 
 // ------------------------------------------------------------------------------
@@ -133,9 +134,14 @@ void Level2::Update()
 		// volta para a tela de abertura
 		Engine::Next<Home>();
 	}
+	else if (window->KeyDown('G'))
+	{
+		// passa manualmente para o GameOver
+		//Engine::Next<Level2>();
+	}
 	else if (window->KeyDown('N'))
 	{
-		// passa manualmente para o próximo nível
+		// passa manualmente para o Congratulations
 		//Engine::Next<Level2>();
 	}
 	else
@@ -146,7 +152,7 @@ void Level2::Update()
 	}
 	// COMANDOS DO PLAYER
 	if (getGameState() == HOME) {
-		home();
+		Engine::Next<Home>();
 	}
 }
 
@@ -165,13 +171,3 @@ void Level2::Draw()
 }
 
 // ------------------------------------------------------------------------------
-//CONTROLADORES DE LVL
-void Level2::nextLvl() {
-	Engine::Next<Home>();
-}
-void Level2::restartLvl() {
-	Engine::Next<Level1>();
-}
-void Level2::home() {
-	Engine::Next<Home>();
-}

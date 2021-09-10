@@ -29,7 +29,6 @@ Player::Player()
 
 	// imagem do player é 48 por 48 (com borda transparente de W pixels)
 	bbox = new Rect(-20, -20, 20, 20);
-	MoveTo(480.0f, 445.0f);
 	type = PLAYER;
 
 	stateTime = 5;
@@ -47,6 +46,8 @@ Player::Player(Scene* sc)
 	bbox = new Rect(-20, -20, 20, 20);
 	MoveTo(480.0f, 445.0f);
 	type = PLAYER;
+
+	stateTime = 5;
 }
 
 // ---------------------------------------------------------------------------------

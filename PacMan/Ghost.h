@@ -42,6 +42,9 @@ private:
     float distX = 0;                    // distância do inimigo em relação ao jogador pelo eixo X
     float distY = 0;                    // distância do inimigo em relação ao jogador pelo eixo Y
 
+    float stateTime = 0;                // cronômetro para saída do fantasma do covil
+    bool gameStart = false;             // indica se o jogo já começou
+
 public:
     float velX = 0;                     // velocidade horizontal
     float velY = 0;                     // velocidade vertical
@@ -50,8 +53,8 @@ public:
     uint currentMove = STOPED;          // movimento atual do inimigo
     uint nextMove = STOPED;             // próximo movimento do inimigo
 
-    Ghost(Player* p, float X, float Y, uint enemy = WHITE);       // construtor
-    ~Ghost();                                                     // destrutor
+    Ghost(Player* p, float X, float Y, float time = 0, uint enemy = WHITE);       // construtor
+    ~Ghost();                                                                 // destrutor
 
     void Stop();                        // pára jogador
     void Up();                          // muda direção para cima
