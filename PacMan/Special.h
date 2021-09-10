@@ -1,16 +1,5 @@
-/**********************************************************************************
-// Food (Arquivo de Cabeçalho)
-//
-// Criação:     03 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Comida do PacMan
-//
-**********************************************************************************/
-
-#ifndef _PACMAN_FOOD_H_
-#define _PACMAN_FOOD_H_
+#ifndef _PACMAN_SPECIAL_H_
+#define _PACMAN_SPECIAL_H_
 
 // ---------------------------------------------------------------------------------
 // Inclusões
@@ -23,14 +12,14 @@
 
 // ---------------------------------------------------------------------------------
 
-class Food : public Object
+class Special : public Object
 {
 private:
 	Sprite* sprite = nullptr;			// sprite da comida
 
 public:
-	Food(Image* img);                   // construtor
-	~Food();                            // destrutor
+	Special(Image* img);                // construtor
+	~Special();                         // destrutor
 
 
 	void Update();                      // atualização do objeto
@@ -39,7 +28,7 @@ public:
 
 // ---------------------------------------------------------------------------------
 
-inline void Food::Draw()
+inline void Special::Draw()
 {
 	sprite->Draw(x, y, z);
 }

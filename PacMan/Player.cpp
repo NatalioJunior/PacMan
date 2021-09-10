@@ -1,6 +1,6 @@
 /**********************************************************************************
 // Player (Código Fonte)
-// 
+//
 // Criação:     01 Jan 2013
 // Atualização: 25 Ago 2021
 // Compilador:  Visual C++ 2019
@@ -12,445 +12,528 @@
 #include "PacMan.h"
 #include "Player.h"
 #include "Pivot.h"
+#include "Food.h"
+#include "Special.h"
+#include "Ghost.h"
 
 // ---------------------------------------------------------------------------------
 
+Scene* Player::scene = nullptr;
 Player::Player()
 {
-    spriteL = new Sprite("Resources/PacManL.png");
-    spriteR = new Sprite("Resources/PacManR.png");
-    spriteU = new Sprite("Resources/PacManU.png");
-    spriteD = new Sprite("Resources/PacManD.png");
+	// Sprites a definir:
+	spriteL = new Sprite("Resources/SkullL.png");
+	spriteR = new Sprite("Resources/SkullR.png");
+	spriteU = new Sprite("Resources/SkullU.png");
+	spriteD = new Sprite("Resources/SkullD.png");
 
-    // imagem do pacman é 48x48 (com borda transparente de 4 pixels)
-    bbox = new Rect(-20, -20, 20, 20);
-    MoveTo(480.0f, 450.0f);
-    type = PLAYER;
+	// imagem do player é 48 por 48 (com borda transparente de W pixels)
+	bbox = new Rect(-20, -20, 20, 20);
+	type = PLAYER;
+
+	stateTime = 5;
+}
+Player::Player(Scene* sc)
+{
+	scene = sc;
+	// Sprites a definir:
+	spriteL = new Sprite("Resources/SkullL.png");
+	spriteR = new Sprite("Resources/SkullR.png");
+	spriteU = new Sprite("Resources/SkullU.png");
+	spriteD = new Sprite("Resources/SkullD.png");
+
+	// imagem do player é 48 por 48 (com borda transparente de W pixels)
+	bbox = new Rect(-20, -20, 20, 20);
+	MoveTo(480.0f, 445.0f);
+	type = PLAYER;
+
+	stateTime = 5;
 }
 
 // ---------------------------------------------------------------------------------
 
 Player::~Player()
 {
-    delete spriteL;
-    delete spriteR;
-    delete spriteU;
-    delete spriteD;
-    delete bbox;
+	delete spriteL;
+	delete spriteR;
+	delete spriteU;
+	delete spriteD;
+	delete bbox;
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Stop()
 {
-    velX = 0;
-    velY = 0;
+	velX = 0;
+	velY = 0;
+	ctrlWeb = true;
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Up()
 {
-    velX = 0;
-    velY = -200.0f;
+	velX = 0;
+	velY = -190.0f;
+	ctrlWeb = true;
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Down()
 {
-    velX = 0;
-    velY = 200.0f;
+	velX = 0;
+	velY = 190.0f;
+	ctrlWeb = true;
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Left()
 {
-    velX = -200.0f;
-    velY = 0;
+	velX = -190.0f;
+	velY = 0;
+	ctrlWeb = true;
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Right()
 {
-    velX = 200.0f;
-    velY = 0;
+	velX = 190.0f;
+	velY = 0;
+	ctrlWeb = true;
 }
 
 // ---------------------------------------------------------------------------------
 
-void Player::OnCollision(Object * obj)
+void Player::OnCollision(Object* obj)
 {
-    if (obj->Type() == PIVOT)
-        PivotCollision(obj);
+	//Testando quais objetos estao colidindo
+	if (obj->Type() == PIVOT)
+		PivotCollision(obj);
+	if (obj->Type() == FOOD)
+		foodCollision(obj);
+	if (obj->Type() == SPECIAL)
+		specialCollision(obj);
+	if (obj->Type() == GHOST)
+		ghostCollision(obj);
+	if (obj->Type() == OBSTACLE)
+		ObstacleCollision(obj);
+
 }
 
 // ---------------------------------------------------------------------------------
+//COLISOES personalizadas 
+void Player::foodCollision(Object* obj) {
+	Food* fd = (Food*)obj;
+	setScore(getScore() + 10);
+	scene->Delete(fd, STATIC);
+}
+void Player::ghostCollision(Object* obj) {
+	if (state == FLEE) {
+		//MoveTo(480.0f, 445.0f);
+		game->setGameState(HOME);
+	}
+	else {
+		scene->Delete((Ghost*)obj, MOVING);
+	}
+}
 
-void Player::PivotCollision(Object * obj)
+void Player::ObstacleCollision(Object* obj)
 {
-    Pivot * p = (Pivot*)obj;
+	if (ctrlWeb) {
+		velX = velX * 0.55f;
+		velY = velY * 0.5f;
+		ctrlWeb = false;
+	}
+}
 
-    switch (currState)
-    {
-    case STOPED:
-        // -----------------------
-        // CurrentState == STOPED
-        // -----------------------
+void Player::specialCollision(Object* obj) {
+	Special* sp = (Special*)obj;
+	setScore(getScore() + 10);
+	scene->Delete(sp, STATIC);
+	state = PURSUE;
+}
+// ---------------------------------------------------------------------------------
 
-        switch (nextState)
-        {
-        case LEFT:
-            if (p->left)
-            {
-                currState = LEFT;
-                Left();
-            }
-            break;
-        case RIGHT:
-            if (p->right)
-            {
-                currState = RIGHT;
-                Right();
-            }
+void Player::PivotCollision(Object* obj)
+{
+	Pivot* p = (Pivot*)obj;
 
-            break;
-        case UP:
-            if (p->up)
-            {
-                currState = UP;
-                Up();
-            }
-            break;
-        case DOWN:
-            if (p->down)
-            {
-                currState = DOWN;
-                Down();
-            }
-            break;
-        }
-        break;
+	switch (currState)
+	{
+	case STOPED:
+		// -----------------------
+		// CurrentState == STOPED
+		// -----------------------
 
-    case LEFT:
-        // -----------------------
-        // CurrentState == LEFT
-        // -----------------------
+		switch (nextState)
+		{
+		case LEFT:
+			if (p->left)
+			{
+				currState = LEFT;
+				Left();
+			}
+			break;
+		case RIGHT:
+			if (p->right)
+			{
+				currState = RIGHT;
+				Right();
+			}
 
-        if (x < p->X())
-        {
-            if (!p->left)
-            {
-                MoveTo(p->X(), Y());
-                currState = STOPED;
-                Stop();
-            }
-        }
+			break;
+		case UP:
+			if (p->up)
+			{
+				currState = UP;
+				Up();
+			}
+			break;
+		case DOWN:
+			if (p->down)
+			{
+				currState = DOWN;
+				Down();
+			}
+			break;
+		}
+		break;
 
-        switch (nextState)
-        {
-        case LEFT:
-            if (x < p->X())
-            {
-                if (!p->left)
-                {
-                    MoveTo(p->X(), Y());
-                    currState = STOPED;
-                    Stop();
-                }
-            }
-            break;
-        case RIGHT:
-            currState = RIGHT;
-            Right();
+	case LEFT:
+		// -----------------------
+		// CurrentState == LEFT
+		// -----------------------
 
-            break;
-        case UP:
-            if (x < p->X())
-            {
-                if (p->up)
-                {
-                    MoveTo(p->X(), Y());
-                    currState = UP;
-                    Up();
-                }
-            }
-            break;
-        case DOWN:
-            if (x < p->X())
-            {
-                if (p->down)
-                {
-                    MoveTo(p->X(), Y());
-                    currState = DOWN;
-                    Down();
-                }
-            }
-            break;
-        }
-        break;
+		if (x < p->X())
+		{
+			if (!p->left)
+			{
+				MoveTo(p->X(), Y());
+				currState = STOPED;
+				Stop();
+			}
+		}
 
-    case RIGHT:
-        // -----------------------
-        // CurrentState == RIGHT
-        // -----------------------
+		switch (nextState)
+		{
+		case LEFT:
+			if (x < p->X())
+			{
+				if (!p->left)
+				{
+					MoveTo(p->X(), Y());
+					currState = STOPED;
+					Stop();
+				}
+			}
+			break;
+		case RIGHT:
+			currState = RIGHT;
+			Right();
 
-        if (x > p->X())
-        {
-            if (!p->right)
-            {
-                MoveTo(p->X(), Y());
-                currState = STOPED;
-                Stop();
-            }
-        }
+			break;
+		case UP:
+			if (x < p->X())
+			{
+				if (p->up)
+				{
+					MoveTo(p->X(), Y());
+					currState = UP;
+					Up();
+				}
+			}
+			break;
+		case DOWN:
+			if (x < p->X())
+			{
+				if (p->down)
+				{
+					MoveTo(p->X(), Y());
+					currState = DOWN;
+					Down();
+				}
+			}
+			break;
+		}
+		break;
 
-        switch (nextState)
-        {
-        case LEFT:
-            currState = LEFT;
-            Left();
-            break;
-        case RIGHT:
-            if (x > p->X())
-            {
-                if (!p->right)
-                {
-                    MoveTo(p->X(), Y());
-                    currState = STOPED;
-                    Stop();
-                }
-            }
+	case RIGHT:
+		// -----------------------
+		// CurrentState == RIGHT
+		// -----------------------
 
-            break;
-        case UP:
-            if (x > p->X())
-            {
-                if (p->up)
-                {
-                    MoveTo(p->X(), Y());
-                    currState = UP;
-                    Up();
-                }
-            }
-            break;
-        case DOWN:
-            if (x > p->X())
-            {
-                if (p->down)
-                {
-                    MoveTo(p->X(), Y());
-                    currState = DOWN;
-                    Down();
-                }
-            }
-            break;
-        }
-        break;
+		if (x > p->X())
+		{
+			if (!p->right)
+			{
+				MoveTo(p->X(), Y());
+				currState = STOPED;
+				Stop();
+			}
+		}
 
-    case UP:
-        // -----------------------
-        // CurrentState == UP
-        // -----------------------
+		switch (nextState)
+		{
+		case LEFT:
+			currState = LEFT;
+			Left();
+			break;
+		case RIGHT:
+			if (x > p->X())
+			{
+				if (!p->right)
+				{
+					MoveTo(p->X(), Y());
+					currState = STOPED;
+					Stop();
+				}
+			}
 
-        if (y < p->Y())
-        {
-            if (!p->up)
-            {
-                MoveTo(x, p->Y());
-                currState = STOPED;
-                Stop();
-            }
-        }
+			break;
+		case UP:
+			if (x > p->X())
+			{
+				if (p->up)
+				{
+					MoveTo(p->X(), Y());
+					currState = UP;
+					Up();
+				}
+			}
+			break;
+		case DOWN:
+			if (x > p->X())
+			{
+				if (p->down)
+				{
+					MoveTo(p->X(), Y());
+					currState = DOWN;
+					Down();
+				}
+			}
+			break;
+		}
+		break;
 
-        switch (nextState)
-        {
-        case LEFT:
-            if (y < p->Y())
-            {
-                if (p->left)
-                {
-                    MoveTo(x, p->Y());
-                    currState = LEFT;
-                    Left();
-                }
-            }
-            break;
-        case RIGHT:
-            if (y < p->Y())
-            {
-                if (p->right)
-                {
-                    MoveTo(x, p->Y());
-                    currState = RIGHT;
-                    Right();
-                }
-            }
-            break;
-        case UP:
-            if (y < p->Y())
-            {
-                if (!p->up)
-                {
-                    MoveTo(x, p->Y());
-                    currState = STOPED;
-                    Stop();
-                }
-            }
-            break;
-        case DOWN:
-            currState = DOWN;
-            Down();
-            break;
-        }
-        break;
+	case UP:
+		// -----------------------
+		// CurrentState == UP
+		// -----------------------
 
-    case DOWN:
-        // -----------------------
-        // CurrentState == DOWN
-        // -----------------------
+		if (y < p->Y())
+		{
+			if (!p->up)
+			{
+				MoveTo(x, p->Y());
+				currState = STOPED;
+				Stop();
+			}
+		}
 
-        if (y > p->Y())
-        {
-            if (!p->down)
-            {
-                MoveTo(x, p->Y());
-                currState = STOPED;
-                Stop();
-            }
-        }
+		switch (nextState)
+		{
+		case LEFT:
+			if (y < p->Y())
+			{
+				if (p->left)
+				{
+					MoveTo(x, p->Y());
+					currState = LEFT;
+					Left();
+				}
+			}
+			break;
+		case RIGHT:
+			if (y < p->Y())
+			{
+				if (p->right)
+				{
+					MoveTo(x, p->Y());
+					currState = RIGHT;
+					Right();
+				}
+			}
+			break;
+		case UP:
+			if (y < p->Y())
+			{
+				if (!p->up)
+				{
+					MoveTo(x, p->Y());
+					currState = STOPED;
+					Stop();
+				}
+			}
+			break;
+		case DOWN:
+			currState = DOWN;
+			Down();
+			break;
+		}
+		break;
 
-        switch (nextState)
-        {
-        case LEFT:
-            if (y > p->Y())
-            {
-                if (p->left)
-                {
-                    MoveTo(x, p->Y());
-                    currState = LEFT;
-                    Left();
-                }
-            }
-            break;
-        case RIGHT:
-            if (y > p->Y())
-            {
-                if (p->right)
-                {
-                    MoveTo(x, p->Y());
-                    currState = RIGHT;
-                    Right();
-                }
-            }
-            break;
-        case UP:
-            currState = UP;
-            Up();
-            break;
-        case DOWN:
-            if (y > p->Y())
-            {
-                if (!p->down)
-                {
-                    MoveTo(x, p->Y());
-                    currState = STOPED;
-                    Stop();
-                }
-            }
-            break;
-        }
-        break;
-    }
+	case DOWN:
+		// -----------------------
+		// CurrentState == DOWN
+		// -----------------------
+
+		if (y > p->Y())
+		{
+			if (!p->down)
+			{
+				MoveTo(x, p->Y());
+				currState = STOPED;
+				Stop();
+			}
+		}
+
+		switch (nextState)
+		{
+		case LEFT:
+			if (y > p->Y())
+			{
+				if (p->left)
+				{
+					MoveTo(x, p->Y());
+					currState = LEFT;
+					Left();
+				}
+			}
+			break;
+		case RIGHT:
+			if (y > p->Y())
+			{
+				if (p->right)
+				{
+					MoveTo(x, p->Y());
+					currState = RIGHT;
+					Right();
+				}
+			}
+			break;
+		case UP:
+			currState = UP;
+			Up();
+			break;
+		case DOWN:
+			if (y > p->Y())
+			{
+				if (!p->down)
+				{
+					MoveTo(x, p->Y());
+					currState = STOPED;
+					Stop();
+				}
+			}
+			break;
+		}
+		break;
+	}
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Update()
 {
-    if (window->KeyDown(VK_LEFT))
-    {
-        nextState = LEFT;
 
-        if (currState == RIGHT || currState == STOPED)
-        {
-            currState = LEFT;
-            Left();
-        }            
-    }
-    
-    if (window->KeyDown(VK_RIGHT))
-    {
-        nextState = RIGHT;
+	if (window->KeyDown(VK_LEFT))
+	{
+		nextState = LEFT;
 
-        if (currState == LEFT || currState == STOPED)
-        {
-            currState = RIGHT;
-            Right();
-        }
-    }
-    
-    if (window->KeyDown(VK_UP))
-    {
-        nextState = UP;
+		if (currState == RIGHT || currState == STOPED)
+		{
+			currState = LEFT;
+			Left();
+		}
+	}
 
-        if (currState == DOWN || currState == STOPED)
-        {
-            currState = UP;
-            Up();
-        }
-    }
-    
-    if (window->KeyDown(VK_DOWN))
-    {
-        nextState = DOWN;
+	if (window->KeyDown(VK_RIGHT))
+	{
+		nextState = RIGHT;
 
-        if (currState == UP || currState == STOPED)
-        {
-            currState = DOWN;
-            Down();
-        }
-    }
+		if (currState == LEFT || currState == STOPED)
+		{
+			currState = RIGHT;
+			Right();
+		}
+	}
 
-    // atualiza posição
-    Translate(velX * gameTime, velY * gameTime);
+	if (window->KeyDown(VK_UP))
+	{
+		nextState = UP;
 
-    // mantém player dentro da tela
-    if (x+20 < 0)
-        MoveTo(window->Width()+20.f, Y());
+		if (currState == DOWN || currState == STOPED)
+		{
+			currState = UP;
+			Up();
+		}
+	}
 
-    if (x-20 > window->Width())
-        MoveTo(-20.0f, Y());
+	if (window->KeyDown(VK_DOWN))
+	{
+		nextState = DOWN;
 
-    if (Y()+20 < 0)
-        MoveTo(x, window->Height()+20.0f);
+		if (currState == UP || currState == STOPED)
+		{
+			currState = DOWN;
+			Down();
+		}
+	}
 
-    if (Y()-20 > window->Height())
-        MoveTo(x, -20.0f);
+	// atualiza posição
+	Translate(velX * gameTime, velY * gameTime);
+
+	// mantém player dentro da tela
+	if (x + 20 < 0)
+		MoveTo(window->Width() + 20.f, Y());
+
+	if (x - 20 > window->Width())
+		MoveTo(-20.0f, Y());
+
+	if (Y() + 20 < 0)
+		MoveTo(x, window->Height() + 20.0f);
+
+	if (Y() - 20 > window->Height())
+		MoveTo(x, -20.0f);
+
+	if (state == PURSUE) {
+		stateTime -= gameTime;
+	}
+	if (stateTime <= 0) {
+		state = FLEE;
+		stateTime = 5;
+	}
+
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Draw()
-{ 
-    switch(currState)
-    {
-    case LEFT:  spriteL->Draw(x, y, Layer::UPPER); break;
-    case RIGHT: spriteR->Draw(x, y, Layer::UPPER); break;
-    case UP:    spriteU->Draw(x, y, Layer::UPPER); break;
-    case DOWN:  spriteD->Draw(x, y, Layer::UPPER); break;
-    default: 
-        switch(nextState)
-        {
-        case LEFT:  spriteL->Draw(x, y, Layer::UPPER); break;
-        case RIGHT: spriteR->Draw(x, y, Layer::UPPER); break;
-        case UP:    spriteU->Draw(x, y, Layer::UPPER); break;
-        case DOWN:  spriteD->Draw(x, y, Layer::UPPER); break;
-        default:    spriteL->Draw(x, y, Layer::UPPER);
-        }
-    }
+{
+	switch (currState)
+	{
+	case LEFT:  spriteL->Draw(x, y, Layer::MIDDLE); break;
+	case RIGHT: spriteR->Draw(x, y, Layer::MIDDLE); break;
+	case UP:    spriteU->Draw(x, y, Layer::MIDDLE); break;
+	case DOWN:  spriteD->Draw(x, y, Layer::MIDDLE); break;
+	default:
+		switch (nextState)
+		{
+		case LEFT:  spriteL->Draw(x, y, Layer::MIDDLE); break;
+		case RIGHT: spriteR->Draw(x, y, Layer::MIDDLE); break;
+		case UP:    spriteU->Draw(x, y, Layer::MIDDLE); break;
+		case DOWN:  spriteD->Draw(x, y, Layer::MIDDLE); break;
+		default:    spriteL->Draw(x, y, Layer::MIDDLE);
+		}
+	}
 }
 
+// ---------------------------------------------------------------------------------
+void Player::setScene(Scene* sc) {
+	scene = sc;
+}
 // ---------------------------------------------------------------------------------

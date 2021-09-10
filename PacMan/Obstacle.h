@@ -9,8 +9,8 @@
 //
 **********************************************************************************/
 
-#ifndef _PACMAN_FOOD_H_
-#define _PACMAN_FOOD_H_
+#ifndef _PACMAN_OBSTACLE_H_
+#define _PACMAN_OBSTACLE_H_
 
 // ---------------------------------------------------------------------------------
 // Inclusões
@@ -23,14 +23,14 @@
 
 // ---------------------------------------------------------------------------------
 
-class Food : public Object
+class Obstacle : public Object
 {
 private:
 	Sprite* sprite = nullptr;			// sprite da comida
 
 public:
-	Food(Image* img);                   // construtor
-	~Food();                            // destrutor
+	Obstacle();                   // construtor
+	~Obstacle();                            // destrutor
 
 
 	void Update();                      // atualização do objeto
@@ -39,7 +39,7 @@ public:
 
 // ---------------------------------------------------------------------------------
 
-inline void Food::Draw()
+inline void Obstacle::Draw()
 {
 	sprite->Draw(x, y, z);
 }

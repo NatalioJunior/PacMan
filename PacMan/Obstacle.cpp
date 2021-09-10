@@ -9,21 +9,21 @@
 //
 **********************************************************************************/
 
-#include "Food.h"
+#include "Obstacle.h"
 
 // ---------------------------------------------------------------------------------
 
-Food::Food(Image* img)
+Obstacle::Obstacle()
 {
-	sprite = new Sprite(img);
+	sprite = new Sprite("Resources/SpiderWeb.png");
 
-	bbox = new Rect((float)-sprite->Width() / 2, (float)-sprite->Height() / 2, (float) sprite->Width() / 2, (float) sprite->Height() / 2);
-	type = FOOD;
+	bbox = new Rect((float)-sprite->Width() / 2, (float)-sprite->Height() / 2, (float)sprite->Width() / 2, (float)sprite->Height() / 2);
+	type = OBSTACLE;
 }
 
 // ---------------------------------------------------------------------------------
 
-Food::~Food()
+Obstacle::~Obstacle()
 {
 	delete sprite;
 	delete bbox;
@@ -31,7 +31,7 @@ Food::~Food()
 
 // ---------------------------------------------------------------------------------
 
-void Food::Update()
+void Obstacle::Update()
 {
 
 }
