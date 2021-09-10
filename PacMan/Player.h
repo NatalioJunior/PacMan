@@ -49,6 +49,7 @@ public:
 	uint state = FLEE;
 	uint currState = STOPED;            // estado atual do jogador
 	uint nextState = STOPED;            // próximo estado do jogador
+	bool ctrlWeb = false;
 
 	Player();                           // construtor
 	Player(Scene* sc);                  // construtor
@@ -61,12 +62,12 @@ public:
 	void Left();                        // muda direção para esquerda
 	void Right();                       // muda direção para direita
 
-	void OnCollision(Object* obj);		// resolução da colisão
-	void PivotCollision(Object* obj);	// resolve colisão com pivô
-	void foodCollision(Object* obj);	// resolve colisão com comida
-	void specialCollision(Object* obj); // resolve colisão com comida especial
-	void ghostCollision(Object* obj);	//Colisao com ghost
-
+	void OnCollision(Object* obj);			// resolução da colisão
+	void PivotCollision(Object* obj);		// resolve colisão com pivô
+	void foodCollision(Object* obj);		// resolve colisão com comida
+	void specialCollision(Object* obj);		// resolve colisão com comida especial
+	void ghostCollision(Object* obj);		//Colisao com ghost
+	void ObstacleCollision(Object* obj);	//Colisao com ghost
 
 	void Update();                      // atualização do objeto
 	void Draw();                        // desenho do objeto

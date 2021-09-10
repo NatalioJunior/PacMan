@@ -67,6 +67,7 @@ void Player::Stop()
 {
 	velX = 0;
 	velY = 0;
+	ctrlWeb = true;
 }
 
 // ---------------------------------------------------------------------------------
@@ -75,6 +76,7 @@ void Player::Up()
 {
 	velX = 0;
 	velY = -190.0f;
+	ctrlWeb = true;
 }
 
 // ---------------------------------------------------------------------------------
@@ -83,6 +85,7 @@ void Player::Down()
 {
 	velX = 0;
 	velY = 190.0f;
+	ctrlWeb = true;
 }
 
 // ---------------------------------------------------------------------------------
@@ -91,6 +94,7 @@ void Player::Left()
 {
 	velX = -190.0f;
 	velY = 0;
+	ctrlWeb = true;
 }
 
 // ---------------------------------------------------------------------------------
@@ -99,6 +103,7 @@ void Player::Right()
 {
 	velX = 190.0f;
 	velY = 0;
+	ctrlWeb = true;
 }
 
 // ---------------------------------------------------------------------------------
@@ -114,6 +119,9 @@ void Player::OnCollision(Object* obj)
 		specialCollision(obj);
 	if (obj->Type() == GHOST)
 		ghostCollision(obj);
+	if (obj->Type() == OBSTACLE)
+		ObstacleCollision(obj);
+
 }
 
 // ---------------------------------------------------------------------------------
@@ -132,6 +140,16 @@ void Player::ghostCollision(Object* obj) {
 		scene->Delete((Ghost*)obj, MOVING);
 	}
 }
+
+void Player::ObstacleCollision(Object* obj)
+{
+	if (ctrlWeb) {
+		velX = velX * 0.55f;
+		velY = velY * 0.5f;
+		ctrlWeb = false;
+	}
+}
+
 void Player::specialCollision(Object* obj) {
 	Special* sp = (Special*)obj;
 	setScore(getScore() + 10);

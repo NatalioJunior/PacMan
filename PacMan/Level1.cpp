@@ -20,6 +20,7 @@
 #include "Pivot.h"
 #include "Food.h"
 #include "Special.h"
+#include "Obstacle.h"
 using std::ifstream;
 using std::string;
 
@@ -111,6 +112,13 @@ void Level1::Init()
 	}
 
 	fin.close();
+
+	Obstacle* spiderweb = new Obstacle();
+	spiderweb->MoveTo(155.0f, 356.0f);
+	scene->Add(spiderweb, STATIC);
+	spiderweb = new Obstacle();
+	spiderweb->MoveTo(805.0F, 356.0f);
+	scene->Add(spiderweb, STATIC);
 
 }
 
