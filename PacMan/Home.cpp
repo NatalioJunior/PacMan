@@ -20,7 +20,7 @@ void Home::Init()
 {
 
     setGameState(HOME);                                   // indica em qual tela está
-    backg = new Sprite("Resources/TitleScreen.jpg");      //    Sprite a definir
+    backg = new Sprite("Resources/startScreen.png");      //    Sprite a definir
 }
 
 // ------------------------------------------------------------------------------
