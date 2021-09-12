@@ -96,7 +96,7 @@ void Ghost::Up()
 	}
 	if (state == FLEE) {
 		velX = 0;
-		velY = -175.0f;
+		velY = -170.0f;
 	}
     
 }
@@ -108,7 +108,7 @@ void Ghost::Down()
 	}
 	if (state == FLEE) {
 		velX = 0;
-		velY = 175.0f;
+		velY = 170.0f;
 	}
 }
 
@@ -119,7 +119,7 @@ void Ghost::Left()
 		velY = 0;
 	}
 	if (state == FLEE) {
-		velX = -175.0f;
+		velX = -170.0f;
 		velY = 0;
 	}
 }
@@ -131,7 +131,7 @@ void Ghost::Right()
 		velY = 0;
 	}
 	if (state == FLEE) {
-		velX = 175.0f;
+		velX = 170.0f;
 		velY = 0;
 	}
 }
@@ -142,6 +142,8 @@ void Ghost::OnCollision(Object* obj)
 {
 	if (obj->Type() == PIVOT)
 		PivotCollision(obj);
+	if (obj->Type() == GHOST)
+		GhostCollision(obj);
 }
 
 void Ghost::PivotCollision(Object* obj)
@@ -571,13 +573,26 @@ void Ghost::PivotCollision(Object* obj)
 
 }
 
+void Ghost::GhostCollision(Object* obj)
+{
+	Ghost* g = (Ghost*)obj;
+	if (x <= g->X() && (currentMove == RIGHT && g->currentMove == RIGHT))
+		MoveTo(g->X() - spriteR->Width(), Y());
+	if (x >= g->X() && (currentMove == LEFT && g->currentMove == LEFT))
+		MoveTo(g->X() + spriteL->Width(), Y());
+	if (y <= g->Y() && (currentMove == DOWN && g->currentMove == DOWN))
+		MoveTo(X(), g->Y() - spriteD->Height());
+	if (y >= g->Y() && (currentMove == UP && g->currentMove == UP))
+		MoveTo(X(), g->Y() + spriteU->Height());
+}
+
 // ---------------------------------------------------------------------------------
 
 void Ghost::Update()
 {
 	state = !player->state;
 
-	if (state == FLEE) {
+	if (state == FLEE && gameStart) {
 		if (distX > distY || player->Y() == y) {
 			if (distX < 0)
 			{
@@ -648,7 +663,8 @@ void Ghost::Update()
 		stateTime -= gameTime;
 	}
 	if (stateTime <= 0 && !gameStart) {
-		MoveTo(479.0f, 360.0f);
+		MoveTo(479.0f, 335.0f);
+		Up();
 		gameStart = !gameStart;
 
 	}

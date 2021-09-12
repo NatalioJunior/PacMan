@@ -9,7 +9,7 @@ void Win::Init()
 {
 
     setGameState(WIN);                                   // indica em qual tela está
-    backg = new Sprite("");                              // Sprite a definir
+    backg = new Sprite("Resources/Winner.jpg");          // Sprite a definir
 }
 
 // ------------------------------------------------------------------------------
@@ -34,9 +34,10 @@ void Win::Update()
         ctrlKeyESC = true;
     }
 
-    // passa ao primeiro nível com ENTER
+    // retorna para a tela HOME com a tecla ENTER
     if (window->KeyDown(VK_RETURN))
         Engine::Next<Home>();
+
 }
 
 // ------------------------------------------------------------------------------

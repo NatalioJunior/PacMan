@@ -20,7 +20,7 @@ void Home::Init()
 {
 
     setGameState(HOME);                                   // indica em qual tela está
-    backg = new Sprite("Resources/startScreen.png");      //    Sprite a definir
+    backg = new Sprite("Resources/Home.png");             //    Sprite a definir
 }
 
 // ------------------------------------------------------------------------------
@@ -45,10 +45,18 @@ void Home::Update()
         ctrlKeyESC = true;
     }
 
-    // passa ao primeiro nível com ENTER
-    if (window->KeyDown(VK_RETURN))
+    // passa ao primeiro nível 1 com ENTER
+    if (ctrlKeyENTER && window->KeyDown(VK_RETURN))
+    {
+        ctrlKeyENTER = false;
         Engine::Next<Level1>();
-    
+    }
+    else if (window->KeyUp(VK_RETURN))
+    {
+        ctrlKeyENTER = true;
+    }
+
+    // passa ao primeiro nível 2 com NUMPAD 1
     if (window->KeyDown(VK_NUMPAD1))
         Engine::Next<Level2>();
 }

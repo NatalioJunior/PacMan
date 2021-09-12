@@ -130,14 +130,20 @@ void Player::foodCollision(Object* obj) {
 	Food* fd = (Food*)obj;
 	setScore(getScore() + 10);
 	scene->Delete(fd, STATIC);
+	scene->comidasTotais -= 1;
 }
 void Player::ghostCollision(Object* obj) {
+	Ghost* g = (Ghost*)obj;
 	if (state == FLEE) {
 		//MoveTo(480.0f, 445.0f);
-		game->setGameState(HOME);
+		game->setGameState(GAMEOVER);
 	}
 	else {
-		scene->Delete((Ghost*)obj, MOVING);
+		g->stateTime = 10;
+		g->gameStart = false;
+		g->currentMove = g->nextMove = STOPED;
+		g->Stop();
+		g->MoveTo(479.0f, 335.0f);
 	}
 }
 

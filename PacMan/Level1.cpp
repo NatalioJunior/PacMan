@@ -21,6 +21,7 @@
 #include "Food.h"
 #include "Special.h"
 #include "Obstacle.h"
+#include "GameOver.h"
 using std::ifstream;
 using std::string;
 
@@ -47,8 +48,6 @@ void Level1::Init()
 	Ghost* ghost = new Ghost(player, 460.0f, 280.0f);
 	scene->Add(ghost, MOVING);
 	ghost = new Ghost(player, 435.0f, 370.0f, 10.0f, BLACK);
-	scene->Add(ghost, MOVING);
-	ghost = new Ghost(player, 520.0f, 370.0f, 20.0f, PUMPKIN);
 	scene->Add(ghost, MOVING);
 
 	// cria pontos de mudança de direção
@@ -102,6 +101,7 @@ void Level1::Init()
 
 			food->MoveTo(foodPosX, foodPosY);
 			scene->Add(food, STATIC);
+			scene->comidasTotais += 1;
 		}
 		else {
 			fin.clear();
@@ -157,17 +157,26 @@ void Level1::Update()
 		// passa manualmente para o próximo nível
 		Engine::Next<Level2>();
 	}
-	else
+	else if (window->KeyDown('G'))
 	{
-		
+		// passa manualmente para a tela de GameOver
+		Engine::Next<GameOver>();
+	}
+	else
+	{		
 		// atualiza cena
 		scene->Update();
 		scene->CollisionDetection();
 	}
 
 	// COMANDOS DO PLAYER
-	if (getGameState() == HOME) {
-		Engine::Next<Home>();
+	if (getGameState() == GAMEOVER) {
+		Engine::Next<GameOver>();
+	}
+
+	if (scene->comidasTotais == 0) {
+		// passa naturalmente para o próximo nível
+		Engine::Next<Level2>();
 	}
 
 }

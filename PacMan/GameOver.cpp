@@ -9,7 +9,7 @@ void GameOver::Init()
 {
 
     setGameState(GAMEOVER);                                   // indica em qual tela está
-    backg = new Sprite("");                                   // Sprite a definir
+    backg = new Sprite("Resources/GameOver.jpg");             // Sprite a definir
 }
 
 // ------------------------------------------------------------------------------
