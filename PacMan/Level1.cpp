@@ -1,13 +1,8 @@
-/**********************************************************************************
-// Level1 (Código Fonte)
-//
-// Criação:     18 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Nível 1 do jogo PacMan
-//
-**********************************************************************************/
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// PRIMEIRO LEVEL JOGAVEL
+// ---------------------------------------------------------------------------------
+
 #include <string>
 #include <fstream>
 
@@ -41,7 +36,7 @@ void Level1::Init()
 	// cria jogador
 	player = new Player();
 	scene->Add(player, MOVING);
-	player->MoveTo(480.0f, 445.0f);
+	player->MoveTo(480.0f, 445.0f);//MOVE PARA O PONTO DE INICIO
 	player->setScene(scene);
 
 	// cria inimigos no centro ( eixo Y = 365.0f )

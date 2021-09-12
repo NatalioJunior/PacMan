@@ -1,16 +1,11 @@
-/**********************************************************************************
-// Food (Arquivo de Cabeçalho)
-//
-// Criação:     03 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Comida do PacMan
-//
-**********************************************************************************/
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// OBJETOS QUE ATRAPAÇHAM O PLAYER
+// ---------------------------------------------------------------------------------
 
-#ifndef _PACMAN_OBSTACLE_H_
-#define _PACMAN_OBSTACLE_H_
+
+#ifndef CAVEIRINHA_OBSTACLE_H_
+#define CAVEIRINHA_OBSTACLE_H_
 
 // ---------------------------------------------------------------------------------
 // Inclusões
@@ -18,7 +13,7 @@
 #include "Types.h"                      // tipos específicos da engine
 #include "Object.h"                     // interface de Object
 #include "Sprite.h"                     // interface de Sprites
-#include "PacMan.h"
+#include "CarlosCaveirinha.h"
 
 
 // ---------------------------------------------------------------------------------

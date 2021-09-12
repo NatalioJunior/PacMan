@@ -9,8 +9,8 @@
 //
 **********************************************************************************/
 
-#ifndef _PACMAN_FOOD_H_
-#define _PACMAN_FOOD_H_
+#ifndef CAVEIRINHA_FOOD_H_
+#define CAVEIRINHA_FOOD_H_
 
 // ---------------------------------------------------------------------------------
 // Inclusões
@@ -18,7 +18,7 @@
 #include "Types.h"                      // tipos específicos da engine
 #include "Object.h"                     // interface de Object
 #include "Sprite.h"                     // interface de Sprites
-#include "PacMan.h"
+#include "CarlosCaveirinha.h"
 
 
 // ---------------------------------------------------------------------------------

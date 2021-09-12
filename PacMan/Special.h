@@ -1,5 +1,10 @@
-#ifndef _PACMAN_SPECIAL_H_
-#define _PACMAN_SPECIAL_H_
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// COMIDAS ESPECIAIS RESPONSAVEIS POR MUDAR O COMPORTAMENTO DOS FANTASMAS
+// ---------------------------------------------------------------------------------
+
+#ifndef CAVEIRINHA_SPECIAL_H_
+#define CAVEIRINHA_SPECIAL_H_
 
 // ---------------------------------------------------------------------------------
 // Inclusões
@@ -7,7 +12,7 @@
 #include "Types.h"                      // tipos específicos da engine
 #include "Object.h"                     // interface de Object
 #include "Sprite.h"                     // interface de Sprites
-#include "PacMan.h"
+#include "CarlosCaveirinha.h"
 
 
 // ---------------------------------------------------------------------------------

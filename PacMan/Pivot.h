@@ -1,16 +1,11 @@
-/**********************************************************************************
-// Pivot (Arquivo de Cabeçalho)
-// 
-// Criação:     01 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Ponto de mudança de direção para o jogador e fantasmas
-//
-**********************************************************************************/
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+//CONTROLA OS LOCAIS ONDE OS OBJETOS EM MOVIMENTOS PODEM OU NAO MUDAR DE DIREÇÃO
+// ---------------------------------------------------------------------------------
 
-#ifndef _PACMAN_PIVOT_H_
-#define _PACMAN_PIVOT_H_
+
+#ifndef CAVEIRINHA_PIVOT_H_
+#define CAVEIRINHA_PIVOT_H_
 
 // ---------------------------------------------------------------------------------
 // Inclusões

@@ -1,15 +1,9 @@
-/**********************************************************************************
-// Player (Código Fonte)
-//
-// Criação:     01 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Player do jogo PacMan
-//
-**********************************************************************************/
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// ---------------------------------------------------------------------------------
 
-#include "PacMan.h"
+
+#include "CarlosCaveirinha.h"
 #include "Player.h"
 #include "Pivot.h"
 #include "Food.h"
@@ -21,13 +15,13 @@
 Scene* Player::scene = nullptr;
 Player::Player()
 {
-	// Sprites a definir:
+	// Sprites do player
 	spriteL = new Sprite("Resources/SkullL.png");
 	spriteR = new Sprite("Resources/SkullR.png");
 	spriteU = new Sprite("Resources/SkullU.png");
 	spriteD = new Sprite("Resources/SkullD.png");
 
-	// imagem do player é 48 por 48 (com borda transparente de W pixels)
+	//definindo a bb
 	bbox = new Rect(-20, -20, 20, 20);
 	type = PLAYER;
 
@@ -36,13 +30,13 @@ Player::Player()
 Player::Player(Scene* sc)
 {
 	scene = sc;
-	// Sprites a definir:
+	// Sprites do player:
 	spriteL = new Sprite("Resources/SkullL.png");
 	spriteR = new Sprite("Resources/SkullR.png");
 	spriteU = new Sprite("Resources/SkullU.png");
 	spriteD = new Sprite("Resources/SkullD.png");
 
-	// imagem do player é 48 por 48 (com borda transparente de W pixels)
+	//definindo bb
 	bbox = new Rect(-20, -20, 20, 20);
 	MoveTo(480.0f, 445.0f);
 	type = PLAYER;
@@ -445,7 +439,7 @@ void Player::PivotCollision(Object* obj)
 
 void Player::Update()
 {
-
+	//Controles
 	if (window->KeyDown(VK_LEFT))
 	{
 		nextState = LEFT;

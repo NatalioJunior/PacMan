@@ -1,13 +1,8 @@
-/**********************************************************************************
-// Home (Código Fonte) 
-// 
-// Criação:     18 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Tela de abertura do jogo PacMan
-//
-**********************************************************************************/
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// PRIMEIRA TEA A SER INICIADA
+// ---------------------------------------------------------------------------------
+
 
 #include "Engine.h"
 #include "Home.h"
@@ -19,8 +14,8 @@
 void Home::Init()
 {
 
-    setGameState(HOME);                                   // indica em qual tela está
-    backg = new Sprite("Resources/Home.png");             //    Sprite a definir
+    setGameState(HOME);                                   // indica em qual tela 
+    backg = new Sprite("Resources/Home.png");             //    Sprite da tela
 }
 
 // ------------------------------------------------------------------------------

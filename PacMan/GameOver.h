@@ -1,6 +1,10 @@
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// TELA DE GAMEOVER
+// ---------------------------------------------------------------------------------
 
-#ifndef _PACMAN_GAMEOVER_H_
-#define _PACMAN_GAMEOVER_H_
+#ifndef CAVEIRINHA_GAMEOVER_H_
+#define CAVEIRINHA_GAMEOVER_H_
 
 // ------------------------------------------------------------------------------
 // Inclusões

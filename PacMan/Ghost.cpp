@@ -1,15 +1,9 @@
-/**********************************************************************************
-// Ghost (Código Fonte)
-// 
-// Criação:     01 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Fantasmas do PacMan
-//
-**********************************************************************************/
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// INIMIGOS DO PLAYER, AO INCOSTAR MATAM OU MORREM
+// ---------------------------------------------------------------------------------
 
-#include "PacMan.h"
+#include "CarlosCaveirinha.h"
 #include "Player.h"
 #include "Ghost.h"
 #include "Pivot.h"
@@ -151,7 +145,7 @@ void Ghost::PivotCollision(Object* obj)
 	Pivot* p = (Pivot*)obj;
 	distX = player->X() - x;
 	distY = player->Y() - y;
-
+	//EXISTEM O ESTADO DO PLAYER PURSUE E FLEE QUE DEFINIEM SE ELE ESTA SENDO PERSEGUIDO OU PERSEGUINDO
 	if (state == PURSUE) {
 		if (distX > 25.0f || distX < -25.0f) {
 			if (distX < 0)

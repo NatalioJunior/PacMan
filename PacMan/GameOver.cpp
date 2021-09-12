@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// TELA DE GAME OVER APOS SER MORTO POR UM FANTASMA
+// ---------------------------------------------------------------------------------
 
 #include "Engine.h"
 #include "GameOver.h"
@@ -9,7 +13,7 @@ void GameOver::Init()
 {
 
     setGameState(GAMEOVER);                                   // indica em qual tela está
-    backg = new Sprite("Resources/GameOver.jpg");             // Sprite a definir
+    backg = new Sprite("Resources/GameOver.jpg");             // Sprite
 }
 
 // ------------------------------------------------------------------------------
