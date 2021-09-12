@@ -76,10 +76,10 @@ void Level2::Init()
 	specialSprite = new Image("Resources/Special.png");
 	Food* food;
 	Special* special = new Special(specialSprite);
-	special->MoveTo(160.0f, 320.0f);
+	special->MoveTo(156.0f, 320.0f);
 	scene->Add(special, STATIC);
 	special = new Special(specialSprite);
-	special->MoveTo(800.0f, 390.f);
+	special->MoveTo(804.0f, 390.f);
 	scene->Add(special, STATIC);
 
 	float foodPosX, foodPosY;

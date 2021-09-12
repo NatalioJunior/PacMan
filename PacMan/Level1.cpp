@@ -86,7 +86,7 @@ void Level1::Init()
 	specialSprite = new Image("Resources/Special.png");
 	Food* food;
 	Special* special = new Special(specialSprite);
-	special->MoveTo(60.0f, 80.0f);
+	special->MoveTo(60.0f, 84.0f);
 	scene->Add(special, STATIC);
 	special = new Special(specialSprite);
 	special->MoveTo(900.0f, 630.0f);
