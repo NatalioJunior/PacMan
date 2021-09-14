@@ -1,23 +1,19 @@
-/**********************************************************************************
-// Food (Código Fonte)
-//
-// Criação:     03 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Comida do PacMan
-//
-**********************************************************************************/
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// PONTUAÇÃO DO NIVEL, SE COMER TODAS PASSA DE NIVEL
+// ---------------------------------------------------------------------------------
+
 
 #include "Food.h"
 
 // ---------------------------------------------------------------------------------
 
 Food::Food(Image* img)
-{
+{	//definindo imgem da comida e sua bb
 	sprite = new Sprite(img);
 
 	bbox = new Rect((float)-sprite->Width() / 2, (float)-sprite->Height() / 2, (float) sprite->Width() / 2, (float) sprite->Height() / 2);
+	//tipo para verificar na colisao
 	type = FOOD;
 }
 

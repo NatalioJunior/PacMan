@@ -1,13 +1,8 @@
-/**********************************************************************************
-// PacMan (Código Fonte)
-// 
-// Criação:     01 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Exercício sobre detecção de colisão
-//
-**********************************************************************************/
+
+//**********************************************************************************/
+//CARLOS CAVEIRINHA
+// GAMESTART AQUI É DEFINIDO A JANELA E SUA PROPRIEDADES COMO A CENA INICIAL
+//**********************************************************************************/
 
 #include "Engine.h"
 #include "Resources.h"
@@ -24,8 +19,8 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     // configura a janela do jogo
     engine->window->Mode(WINDOWED);
     engine->window->Size(960, 720);
-    engine->window->Color(25, 25, 25);
-    engine->window->Title("PacMan");
+    engine->window->Color(10, 10, 30);
+    engine->window->Title("Carlos Caveirinha");
     engine->window->Icon(IDI_ICON);
     engine->window->Cursor(IDC_CURSOR);
 

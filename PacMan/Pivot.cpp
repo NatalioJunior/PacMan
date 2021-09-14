@@ -1,15 +1,10 @@
-/**********************************************************************************
-// Pivot (Código Fonte)
-// 
-// Criação:     01 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Ponto de mudança de direção para o jogador e fantasmas
-//
-**********************************************************************************/
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+//CONTROLA OS LOCAIS ONDE OS OBJETOS EM MOVIMENTOS PODEM OU NAO MUDAR DE DIREÇÃO
+// ---------------------------------------------------------------------------------
 
-#include "PacMan.h"
+
+#include "CarlosCaveirinha.h"
 #include "Pivot.h"
 
 // ---------------------------------------------------------------------------------

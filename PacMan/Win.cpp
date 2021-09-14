@@ -1,33 +1,31 @@
 // ---------------------------------------------------------------------------------
 //CARLOS CAVEIRINHA
-// PRIMEIRA TEA A SER INICIADA
+// TELA DE WIN
 // ---------------------------------------------------------------------------------
 
-
 #include "Engine.h"
+#include "Win.h"
 #include "Home.h"
-#include "Level1.h"
-#include "Level2.h"
 
 // ------------------------------------------------------------------------------
 
-void Home::Init()
+void Win::Init()
 {
 
-    setGameState(HOME);                                   // indica em qual tela 
-    backg = new Sprite("Resources/Home.png");             //    Sprite da tela
+    setGameState(WIN);                                   // indica em qual tela está
+    backg = new Sprite("Resources/Winner.jpg");          // Sprite a definir
 }
 
 // ------------------------------------------------------------------------------
 
-void Home::Finalize()
+void Win::Finalize()
 {
     delete backg;
 }
 
 // ------------------------------------------------------------------------------
 
-void Home::Update()
+void Win::Update()
 {
     // sai do jogo com a tecla ESC
     if (ctrlKeyESC && window->KeyDown(VK_ESCAPE))
@@ -40,25 +38,15 @@ void Home::Update()
         ctrlKeyESC = true;
     }
 
-    // passa ao primeiro nível 1 com ENTER
-    if (ctrlKeyENTER && window->KeyDown(VK_RETURN))
-    {
-        ctrlKeyENTER = false;
-        Engine::Next<Level1>();
-    }
-    else if (window->KeyUp(VK_RETURN))
-    {
-        ctrlKeyENTER = true;
-    }
+    // retorna para a tela HOME com a tecla ENTER
+    if (window->KeyDown(VK_RETURN))
+        Engine::Next<Home>();
 
-    // passa ao primeiro nível 2 com NUMPAD 1
-    if (window->KeyDown(VK_NUMPAD1))
-        Engine::Next<Level2>();
 }
 
 // ------------------------------------------------------------------------------
 
-void Home::Draw()
+void Win::Draw()
 {
     backg->Draw(float(window->CenterX()), float(window->CenterY()), Layer::BACK);
 }

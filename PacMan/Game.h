@@ -23,7 +23,7 @@
 
 // ---------------------------------------------------------------------------------
 
-enum STATECOMAND { HOME, LVL1, LVL2, OVER };
+enum STATECOMAND { HOME, LVL1, LVL2, GAMEOVER, WIN };
 
 class Game
 {

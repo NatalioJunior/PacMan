@@ -1,33 +1,31 @@
 // ---------------------------------------------------------------------------------
 //CARLOS CAVEIRINHA
-// PRIMEIRA TEA A SER INICIADA
+// TELA DE GAME OVER APOS SER MORTO POR UM FANTASMA
 // ---------------------------------------------------------------------------------
 
-
 #include "Engine.h"
+#include "GameOver.h"
 #include "Home.h"
-#include "Level1.h"
-#include "Level2.h"
 
 // ------------------------------------------------------------------------------
 
-void Home::Init()
+void GameOver::Init()
 {
 
-    setGameState(HOME);                                   // indica em qual tela 
-    backg = new Sprite("Resources/Home.png");             //    Sprite da tela
+    setGameState(GAMEOVER);                                   // indica em qual tela está
+    backg = new Sprite("Resources/GameOver.jpg");             // Sprite
 }
 
 // ------------------------------------------------------------------------------
 
-void Home::Finalize()
+void GameOver::Finalize()
 {
     delete backg;
 }
 
 // ------------------------------------------------------------------------------
 
-void Home::Update()
+void GameOver::Update()
 {
     // sai do jogo com a tecla ESC
     if (ctrlKeyESC && window->KeyDown(VK_ESCAPE))
@@ -40,25 +38,14 @@ void Home::Update()
         ctrlKeyESC = true;
     }
 
-    // passa ao primeiro nível 1 com ENTER
-    if (ctrlKeyENTER && window->KeyDown(VK_RETURN))
-    {
-        ctrlKeyENTER = false;
-        Engine::Next<Level1>();
-    }
-    else if (window->KeyUp(VK_RETURN))
-    {
-        ctrlKeyENTER = true;
-    }
-
-    // passa ao primeiro nível 2 com NUMPAD 1
-    if (window->KeyDown(VK_NUMPAD1))
-        Engine::Next<Level2>();
+    // passa ao primeiro nível com ENTER
+    if (window->KeyDown(VK_RETURN))
+        Engine::Next<Home>();
 }
 
 // ------------------------------------------------------------------------------
 
-void Home::Draw()
+void GameOver::Draw()
 {
     backg->Draw(float(window->CenterX()), float(window->CenterY()), Layer::BACK);
 }

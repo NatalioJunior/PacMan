@@ -1,16 +1,11 @@
-/**********************************************************************************
-// Player (Arquivo de Cabeçalho)
-//
-// Criação:     01 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Player do jogo PacMan
-//
-**********************************************************************************/
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// JOGADOR 
+// ---------------------------------------------------------------------------------
 
-#ifndef _PACMAN_PLAYER_H_
-#define _PACMAN_PLAYER_H_
+
+#ifndef CAVEIRINHA_PLAYER_H_
+#define CAVEIRINHA_PLAYER_H_
 
 // ---------------------------------------------------------------------------------
 // Inclusões
@@ -39,7 +34,7 @@ private:
 	float velY = 0;                    // velocidade vertical do player
 
 	static Scene* scene;			   // ponteiro para Scene
-
+	
 	int scoreP = 0;					   // contador de pontos do jogo
 
 	float stateTime = 0;			   // cronômetro para passagem do efeito azul

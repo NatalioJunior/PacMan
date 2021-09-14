@@ -88,6 +88,8 @@ public:
 
     bool Collision(Object * oa, Object * ob);   // verifica se há colisão entre dois objetos
     void CollisionDetection();                  // trata a colisão entre objetos da cena
+
+    int comidasTotais = 0;                      // numero total de comidas na scene
 };
 
 // --------------------------------------------------------------------------------

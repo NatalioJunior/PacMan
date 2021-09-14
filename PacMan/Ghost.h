@@ -1,16 +1,11 @@
-/**********************************************************************************
-// Ghost (Arquivo de Cabeçalho)
-// 
-// Criação:     01 Jan 2013
-// Atualização: 25 Ago 2021
-// Compilador:  Visual C++ 2019
-//
-// Descrição:   Fantasmas do PacMan
-//
-**********************************************************************************/
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// INIMIGO DO PLAYER
+// ---------------------------------------------------------------------------------
 
-#ifndef _PACMAN_GHOST_H_
-#define _PACMAN_GHOST_H_
+
+#ifndef CAVEIRINHA_GHOST_H_
+#define CAVEIRINHA_GHOST_H_
 
 // ---------------------------------------------------------------------------------
 // Inclusões
@@ -42,10 +37,9 @@ private:
     float distX = 0;                    // distância do inimigo em relação ao jogador pelo eixo X
     float distY = 0;                    // distância do inimigo em relação ao jogador pelo eixo Y
 
+public:
     float stateTime = 0;                // cronômetro para saída do fantasma do covil
     bool gameStart = false;             // indica se o jogo já começou
-
-public:
     float velX = 0;                     // velocidade horizontal
     float velY = 0;                     // velocidade vertical
 
@@ -64,7 +58,7 @@ public:
 
     void OnCollision(Object* obj);		// resolução da colisão
     void PivotCollision(Object* obj);	// resolve colisão com pivô
-    void ghostCollision(Object* obj);	//Colisao com ghost
+    void GhostCollision(Object* obj);	// Colisao com ghost
 
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto

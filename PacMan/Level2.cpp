@@ -1,6 +1,10 @@
+// ---------------------------------------------------------------------------------
+//CARLOS CAVEIRINHA
+// SEGUNDO LEVEL JOGAVEL E UM POUCO MAIS DIFICIL
+// ---------------------------------------------------------------------------------
+
 #include <string>
 #include <fstream>
-
 #include "Engine.h"
 #include "Home.h"
 #include "Level1.h"
@@ -11,6 +15,8 @@
 #include "Food.h"
 #include "Special.h"
 #include "Obstacle.h"
+#include "GameOver.h"
+#include "Win.h"
 using std::ifstream;
 using std::string;
 
@@ -25,7 +31,7 @@ void Level2::Init()
 	// cria gerenciador de cena
 	scene = new Scene();
 
-	backg = new Sprite("Resources/Level2Dark.png");
+	backg = new Sprite("Resources/Level2Blue.png");
 
 	// cria jogador
 	player = new Player();
@@ -37,8 +43,6 @@ void Level2::Init()
 	Ghost* ghost = new Ghost(player, 460.0f, 280.0f);
 	scene->Add(ghost, MOVING);
 	ghost = new Ghost(player, 434.0f, 360.0f, 10.0f, BLACK);
-	scene->Add(ghost, MOVING);
-	ghost = new Ghost(player, 528.0f, 360.0f, 20.0f, PUMPKIN);
 	scene->Add(ghost, MOVING);
 
 	// cria pontos de mudança de direção
@@ -76,10 +80,10 @@ void Level2::Init()
 	specialSprite = new Image("Resources/Special.png");
 	Food* food;
 	Special* special = new Special(specialSprite);
-	special->MoveTo(160.0f, 320.0f);
+	special->MoveTo(156.0f, 320.0f);
 	scene->Add(special, STATIC);
 	special = new Special(specialSprite);
-	special->MoveTo(800.0f, 390.f);
+	special->MoveTo(804.0f, 390.f);
 	scene->Add(special, STATIC);
 
 	float foodPosX, foodPosY;
@@ -92,6 +96,7 @@ void Level2::Init()
 	
 			food->MoveTo(foodPosX, foodPosY);
 			scene->Add(food, STATIC);
+			scene->comidasTotais += 1;
 		}
 		else {
 			fin.clear();
@@ -145,12 +150,12 @@ void Level2::Update()
 	else if (window->KeyDown('G'))
 	{
 		// passa manualmente para o GameOver
-		//Engine::Next<Level2>();
+		Engine::Next<GameOver>();
 	}
-	else if (window->KeyDown('N'))
+	else if (window->KeyDown('W'))
 	{
 		// passa manualmente para o Congratulations
-		//Engine::Next<Level2>();
+		Engine::Next<Win>();
 	}
 	else
 	{
@@ -158,9 +163,14 @@ void Level2::Update()
 		scene->Update();
 		scene->CollisionDetection();
 	}
+
 	// COMANDOS DO PLAYER
-	if (getGameState() == HOME) {
-		Engine::Next<Home>();
+	if (getGameState() == GAMEOVER) {
+		Engine::Next<GameOver>();
+	}
+	if (scene->comidasTotais == 0) {
+		// finaliza o game
+		Engine::Next<Win>();
 	}
 }
 

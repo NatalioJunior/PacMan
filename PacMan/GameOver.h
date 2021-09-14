@@ -1,11 +1,10 @@
 // ---------------------------------------------------------------------------------
 //CARLOS CAVEIRINHA
-// TELA INICIAL DO JOGOS
+// TELA DE GAMEOVER
 // ---------------------------------------------------------------------------------
 
-
-#ifndef CAVEIRINHA_HOME_H_
-#define CAVEIRINHA_HOME_H_
+#ifndef CAVEIRINHA_GAMEOVER_H_
+#define CAVEIRINHA_GAMEOVER_H_
 
 // ------------------------------------------------------------------------------
 // Inclusões
@@ -15,12 +14,11 @@
 
 // ------------------------------------------------------------------------------
 
-class Home : public Game
+class GameOver : public Game
 {
 private:
-    Sprite * backg = nullptr;       // pano de fundo
+    Sprite* backg = nullptr;        // pano de fundo
     bool ctrlKeyESC = false;        // controle do ESC
-    bool ctrlKeyENTER = false;      // controle do ENTER
 
 public:
 
